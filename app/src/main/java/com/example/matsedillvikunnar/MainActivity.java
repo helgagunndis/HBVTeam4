@@ -18,24 +18,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        TextView email =(TextView) findViewById(R.id.login_email);
-        TextView password =(TextView) findViewById(R.id.login_password);
-        Button loginbtn = (Button) findViewById(R.id.login_btn);
-
+    public void handleLogin(View v){
         //Netfang: admin
         //Lykilorð: admin
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(email.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
-                    startActivity(new Intent(MainActivity.this, MyPage.class));
-                    Toast.makeText(MainActivity.this,"Tókst að innskrá",Toast.LENGTH_SHORT).show();
-                }else
-                    Toast.makeText(MainActivity.this,"Netfang eða lykilorð vitlaust",Toast.LENGTH_SHORT).show();
-            }
-        });
+        TextView email =(TextView) findViewById(R.id.login_email);
+        TextView password =(TextView) findViewById(R.id.login_password);
 
+        if(email.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
+            Intent i= new Intent(this, MyPage.class);
+            i.putExtra("email",email.getText().toString());
+            startActivity(i);
+            Toast.makeText(MainActivity.this,"Tókst að innskrá",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(MainActivity.this,"Netfang eða lykilorð vitlaust",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void  handleSignup(View v){
 
     }
+
 }

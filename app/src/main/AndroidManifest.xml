@@ -11,9 +11,7 @@
         android:theme="@style/Theme.MatsedillVikunnar" >
         <activity
             android:name=".activities.MyPage"
-            android:exported="false" />
-        <activity
-            android:name=".ui.login_signup.login"
+            android:label="Mínar síður"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

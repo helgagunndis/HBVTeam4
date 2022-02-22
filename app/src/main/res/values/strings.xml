@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MatsedillVikunnar</string>
+    <string name="title_one">Matseðill</string>
+    <string name="title_two">Vikunnar</string>
+    <string name="email">Netfang</string>
+    <string name="password">Lykilorð</string>
+    <string name="login">Innskrá</string>
+    <string name="login_page">Innskráning</string>
+    <string name="signup">Nýskrá</string>
 </resources>
