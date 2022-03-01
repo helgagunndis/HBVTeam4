@@ -6,5 +6,18 @@
     <string name="password">Lykilorð</string>
     <string name="login">Innskrá</string>
     <string name="login_page">Innskráning</string>
-    <string name="signup">Nýskrá</string>
+    <string name="signup_link">Nýskrá</string>
+    <string name="managed_to_login_tost">Tókst að innskrá</string>
+    <string name="failed_to_login_tost">Netfang eða lykilorð vitlaust</string>
+
+
+    <string name="signup">Stofna nýjan aðgang</string>
+    <string name="signup_page">Nýskráning</string>
+    <string name="username">Notendanafn</string>
+    <string name="you_have_account">Áttu nú þegar aðgang ?</string>
+    <string name="sign_in">Skrá inn</string>
+
+
+
+
 </resources>
