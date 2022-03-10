@@ -7,8 +7,8 @@
     <string name="login">Innskrá</string>
     <string name="login_page">Innskráning</string>
     <string name="signup_link">Nýskrá</string>
-    <string name="managed_to_login_tost">Tókst að innskrá</string>
-    <string name="failed_to_login_tost">Netfang eða lykilorð vitlaust</string>
+    <string name="managed_to_login_toast">Tókst að innskrá</string>
+    <string name="failed_to_login_toast">Netfang eða lykilorð vitlaust</string>
 
 
     <string name="signup">Stofna nýjan aðgang</string>
@@ -23,6 +23,18 @@
     <string name="pescetarian">Fiskmetisæta</string>
     <string name="vegetarian">Grænmetisæta</string>
     <string name="vegan">Grænkeri</string>
+    <string name="monday">Mánudagur</string>
+    <string name="tuesday">Þriðjudagur</string>
+    <string name="wednesday">Miðvikudagur</string>
+    <string name="thursday">Fimmtudagur</string>
+    <string name="friday">Föstudagur</string>
+    <string name="saturday">Laugardagur</string>
+    <string name="sunday">Sunnudagur</string>
+    <string name="confirm_mealplan">Samþykkja</string>
+    <string name="new_random_mealplan">Velja aftur</string>
+    <string name="shopping_list">Innkaupalisti</string>
+    <string name="quantity">Magn</string>
+    <string name="ingredients">Hráefni</string>
 
 
 </resources>

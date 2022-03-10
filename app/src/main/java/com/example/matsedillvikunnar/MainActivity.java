@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
             Intent i= new Intent(this, MyPageActivity.class);
             i.putExtra(USER_NAME,mTextViewEmail.getText().toString());
             startActivity(i);
-            Toast.makeText(MainActivity.this,R.string.managed_to_login_tost,Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,R.string.managed_to_login_toast,Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(MainActivity.this,R.string.failed_to_login_tost,Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,R.string.failed_to_login_toast,Toast.LENGTH_SHORT).show();
         }
     }
 
