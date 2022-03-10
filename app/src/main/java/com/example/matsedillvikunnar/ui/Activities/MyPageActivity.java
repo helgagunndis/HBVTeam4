@@ -1,10 +1,12 @@
-package com.example.matsedillvikunnar;
+package com.example.matsedillvikunnar.ui.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.matsedillvikunnar.R;
 
 public class MyPageActivity extends AppCompatActivity {
 

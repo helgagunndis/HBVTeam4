@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MatsedillVikunnar">
         <activity
-            android:name=".CreateAccountActivity"
+            android:name=".ui.Activities.SetupActivity"
             android:exported="false" />
         <activity
-            android:name=".MyPageActivity"
+            android:name=".ui.Activities.CreateAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Activities.MyPageActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

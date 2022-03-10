@@ -18,6 +18,11 @@
     <string name="sign_in">Skrá inn</string>
 
 
+    <string name="choose_category">Veldu þinn flokk</string>
+    <string name="omnivore">Alæta</string>
+    <string name="pescetarian">Fiskmetisæta</string>
+    <string name="vegetarian">Grænmetisæta</string>
+    <string name="vegan">Grænkeri</string>
 
 
 </resources>

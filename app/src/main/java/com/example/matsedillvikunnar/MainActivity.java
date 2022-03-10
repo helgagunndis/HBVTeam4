@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.matsedillvikunnar.ui.Activities.CreateAccountActivity;
+import com.example.matsedillvikunnar.ui.Activities.MyPageActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 

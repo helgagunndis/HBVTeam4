@@ -1,10 +1,13 @@
-package com.example.matsedillvikunnar;
+package com.example.matsedillvikunnar.ui.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.matsedillvikunnar.MainActivity;
+import com.example.matsedillvikunnar.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
