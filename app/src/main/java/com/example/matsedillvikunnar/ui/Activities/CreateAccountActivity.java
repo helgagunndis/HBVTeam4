@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.matsedillvikunnar.MainActivity;
+import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
@@ -18,7 +18,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     public void backToLogin (View v){
-        Intent i= new Intent(this, MainActivity.class);
+        Intent i= new Intent(this, LoginActivity.class);
         startActivity(i);
     }
 
