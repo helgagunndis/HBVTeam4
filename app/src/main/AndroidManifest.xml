@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MatsedillVikunnar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.Activities.RecipesActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Activities.SetupActivity"
             android:exported="false" />
         <activity

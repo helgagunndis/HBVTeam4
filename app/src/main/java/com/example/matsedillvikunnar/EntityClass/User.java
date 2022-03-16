@@ -1,31 +1,36 @@
 package com.example.matsedillvikunnar.EntityClass;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "user")
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class User {
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
-    private int mId;
+    @SerializedName("ID")
+    private int mID;
 
-    @ColumnInfo(name = "username")
+    @SerializedName("username")
     private String mUsername;
+    @SerializedName("userEmail")
+    private String mUserEmail;
+    @SerializedName("userPassword")
+    private String mUserPassword;
+    // TODO : Bæta við Category sem fylgir notandanum
+    @SerializedName("mealPlanList")
+    private List<MPList> mMealPlan;
 
-    @ColumnInfo(name = "email")
-    private String mEmail;
-
-    @ColumnInfo(name = "password")
-    private String mPassword;
-
-    public int getId() {
-        return mId;
+    public User(String username, String userEmail, String userPassword) {
+        mUsername = username;
+        mUserEmail = userEmail;
+        mUserPassword = userPassword;
     }
 
-    public void setId(int id) {
-        mId = id;
+    public int getID() {
+        return mID;
+    }
+
+    public void setID(int ID) {
+        mID = ID;
     }
 
     public String getUsername() {
@@ -36,25 +41,27 @@ public class User {
         mUsername = username;
     }
 
-    public String getEmail() {
-        return mEmail;
+    public String getUserEmail() {
+        return mUserEmail;
     }
 
-    public void setEmail(String email) {
-        mEmail = email;
+    public void setUserEmail(String userEmail) {
+        mUserEmail = userEmail;
     }
 
-    public String getPassword() {
-        return mPassword;
+    public String getUserPassword() {
+        return mUserPassword;
     }
 
-    public void setPassword(String password) {
-        mPassword = password;
+    public void setUserPassword(String userPassword) {
+        mUserPassword = userPassword;
     }
 
-    public User(String username, String email, String password) {
-        mUsername = username;
-        mEmail = email;
-        mPassword = password;
+    public List<MPList> getMealPlan() {
+        return mMealPlan;
+    }
+
+    public void setMealPlan(List<MPList> mealPlan) {
+        mMealPlan = mealPlan;
     }
 }
