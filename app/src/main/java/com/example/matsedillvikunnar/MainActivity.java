@@ -1,76 +1,50 @@
 package com.example.matsedillvikunnar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.matsedillvikunnar.EntityClass.Recipe;
-import com.example.matsedillvikunnar.EntityClass.User;
-import com.example.matsedillvikunnar.networking.NetworkManager;
-import com.example.matsedillvikunnar.ui.Activities.CreateAccountActivity;
-import com.example.matsedillvikunnar.ui.Activities.MyPageActivity;
-
-import java.util.List;
-
-import com.example.matsedillvikunnar.networking.NetworkCallback;
-import com.example.matsedillvikunnar.networking.NetworkManager;
-import com.example.matsedillvikunnar.ui.Activities.RecipesActivity;
-
+import com.example.matsedillvikunnar.databinding.ActivityMainBinding;
+import com.example.matsedillvikunnar.fragments.MyPageFragment;
+import com.example.matsedillvikunnar.fragments.NewPlanFragment;
+import com.example.matsedillvikunnar.fragments.RecipesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG ="MainActivity";
-    private static final String KEY_INDEX = "index";
-    private final String USER_NAME="com.example.matsedillvikunnar.username";
-
-    private Button mButtonLogin;
-    private TextView mTextViewEmail;
-    private TextView mTextViewPassword;
-
-    private TextView mTextViewSignUp;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        replaceFragment(new MyPageFragment());
 
-        mButtonLogin = (Button) findViewById(R.id.login_btn);
-        mButtonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTextViewEmail =(TextView) findViewById(R.id.login_username);
-                mTextViewPassword =(TextView) findViewById(R.id.login_password);
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
-                if(mTextViewEmail.getText().toString().equals("admin") && mTextViewPassword.getText().toString().equals("admin")){
-                    Intent i= new Intent(MainActivity.this, MyPageActivity.class);
-                    i.putExtra(USER_NAME,mTextViewEmail.getText().toString());
-                    startActivity(i);
-                    Toast.makeText(MainActivity.this,R.string.managed_to_login_toast,Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(MainActivity.this,R.string.failed_to_login_toast,Toast.LENGTH_SHORT).show();
-                }
+            switch (item.getItemId()){
+                case R.id.myPages:
+                    replaceFragment(new MyPageFragment());
+                    break;
+                case R.id.newPlan:
+                    replaceFragment(new NewPlanFragment());
+                    break;
+                case R.id.recipes:
+                    replaceFragment(new RecipesFragment());
+                    break;
             }
-        });
 
-        mTextViewSignUp =(TextView) findViewById(R.id.signup_link);
-        mTextViewSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i= new Intent(MainActivity.this, RecipesActivity.class);
-                // Intent i= new Intent(MainActivity.this, CreateAccountActivity.class);
-                startActivity(i);
-
-            }
+            return true;
         });
     }
 
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+    }
 }
-
 
