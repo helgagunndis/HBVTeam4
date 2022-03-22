@@ -2,22 +2,17 @@ package com.example.matsedillvikunnar.networking;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.EntityClass.Recipe;
-import com.example.matsedillvikunnar.EntityClass.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -82,6 +77,31 @@ public class NetworkManager {
                 Gson gson = new Gson();
                 Recipe recipe = gson.fromJson(response, Recipe.class);
                 callback.onSuccess(recipe);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFailure(error.toString());
+            }
+        }
+        );
+        mQueue.add(request);
+    }
+
+    public void getMealPlan(final NetworkCallback<MealPlan> callback){
+        String url = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendPath("mealplan")
+                //.appendPath(String.valueOf(numberOfDays))
+                .build().toString();
+
+        StringRequest request = new StringRequest(
+                Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                MealPlan mealplan = gson.fromJson(response, MealPlan.class);
+                callback.onSuccess(mealplan);
             }
         }, new Response.ErrorListener() {
             @Override

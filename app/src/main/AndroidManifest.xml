@@ -25,6 +25,9 @@
             android:name=".ui.Activities.MyPageActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.Activities.MealPlanActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
