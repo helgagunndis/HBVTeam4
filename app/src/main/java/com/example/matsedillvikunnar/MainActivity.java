@@ -1,6 +1,10 @@
 package com.example.matsedillvikunnar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -10,6 +14,10 @@ import com.example.matsedillvikunnar.databinding.ActivityMainBinding;
 import com.example.matsedillvikunnar.fragments.MyPageFragment;
 import com.example.matsedillvikunnar.fragments.NewPlanFragment;
 import com.example.matsedillvikunnar.fragments.RecipesFragment;
+import com.example.matsedillvikunnar.ui.Activities.MealPlanActivity;
+import com.example.matsedillvikunnar.ui.Activities.MyPageActivity;
+import com.example.matsedillvikunnar.ui.Activities.RecipesActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,31 +28,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new MyPageFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch (item.getItemId()){
                 case R.id.myPages:
-                    replaceFragment(new MyPageFragment());
                     break;
                 case R.id.newPlan:
-                    replaceFragment(new NewPlanFragment());
+                    Intent intent2 = new Intent(MainActivity.this, MealPlanActivity.class);
+                    startActivity(intent2);
                     break;
                 case R.id.recipes:
-                    replaceFragment(new RecipesFragment());
+                    Intent intent3 = new Intent(MainActivity.this, RecipesActivity.class);
+                    startActivity(intent3);
                     break;
             }
 
             return true;
         });
-    }
-
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
     }
 }
 
