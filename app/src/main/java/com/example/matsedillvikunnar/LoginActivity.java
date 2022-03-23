@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.EntityClass.User;
+import com.example.matsedillvikunnar.fragments.MyPageFragment;
 import com.example.matsedillvikunnar.networking.NetworkManager;
 import com.example.matsedillvikunnar.ui.Activities.CreateAccountActivity;
 import com.example.matsedillvikunnar.ui.Activities.MyPageActivity;
@@ -52,6 +53,9 @@ public class LoginActivity extends AppCompatActivity {
                     Intent i= new Intent(LoginActivity.this, MyPageActivity.class);
                     i.putExtra(USER_NAME,mTextViewEmail.getText().toString());
                     startActivity(i);
+                    //call fragment mypage
+                    //getSupportFragmentManager().beginTransaction().add(R.id.bottomNavigationView, new MyPageFragment()).commit();
+
                     Toast.makeText(LoginActivity.this,R.string.managed_to_login_toast,Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(LoginActivity.this,R.string.failed_to_login_toast,Toast.LENGTH_SHORT).show();
