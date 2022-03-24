@@ -3,6 +3,8 @@ package com.example.matsedillvikunnar.networking;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,22 +19,26 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NetworkManager {
     private static final String BASE_URL = "http://10.0.2.2:8080/";
-
+    private final String TAG ="NetworkManager";
     private static NetworkManager mInstance;
     private static RequestQueue mQueue;
     private Context mContext;
-
+    private String token;
 
     public static synchronized NetworkManager getInstance(Context context){
         if(mInstance == null) {
@@ -52,6 +58,47 @@ public class NetworkManager {
         }
         return mQueue;
     }
+
+    public void setToken(String token ){ this.token = token;}
+
+    /**
+     * Getting response form server
+     * @param urlSpec
+     * @param method
+     * @return
+     * @throws IOException
+     */
+    public byte[] getUrlBytes(String urlSpec, String method) throws IOException {
+        URL url = new URL(urlSpec);
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        if(token!=null) conn.addRequestProperty("Authorization","Bearer"+ token);
+        conn.setRequestMethod(method);
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            InputStream in = conn.getInputStream();
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new IOException(conn.getResponseMessage() + ": with " + urlSpec);
+            }
+            int bytesRead = 0;
+            byte[] buffer = new byte[1024];
+            while ((bytesRead = in.read(buffer)) > 0) {
+                out.write(buffer, 0, bytesRead);
+            }
+            out.close();
+            return out.toByteArray();
+        } finally {
+            conn.disconnect();
+        }
+    }
+
+    public String getUrlString(String urlSpec, String method) throws IOException{
+        return new String(getUrlBytes(urlSpec,method));
+    }
+
+    /**
+     *
+     * @param callback
+     */
     public void getRecipes(final NetworkCallback<List<Recipe>> callback){
         StringRequest request = new StringRequest(
                 Request.Method.GET, BASE_URL + "recipes", new Response.Listener<String>() {
@@ -99,15 +146,25 @@ public class NetworkManager {
     public boolean createUser(String username,String email, String password){
         String url = Uri.parse(BASE_URL)
                 .buildUpon()
-                .appendPath("signup")
+                .appendPath("signup1")
                 .appendQueryParameter("username",username)
-                .appendQueryParameter("email",email)
-                .appendQueryParameter("password", password)
+                .appendQueryParameter("userEmail",email)
+                .appendQueryParameter("userPassword", password)
                 .build()
                 .toString();
-
+        try {
+            String response = getUrlString(url,"POST");
+            Log.d(TAG, "Tókst að posta gögnum "+ response);
+        }
+        catch (Exception e){
+            Log.e(TAG, "error createUser");
+            return false;
+        }
         return  true;
     }
+
+
+
 
 
 

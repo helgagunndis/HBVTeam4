@@ -4,24 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.matsedillvikunnar.EntityClass.Recipe;
-import com.example.matsedillvikunnar.EntityClass.User;
-import com.example.matsedillvikunnar.networking.NetworkManager;
 import com.example.matsedillvikunnar.ui.Activities.CreateAccountActivity;
 import com.example.matsedillvikunnar.ui.Activities.MyPageActivity;
-
-import java.util.List;
-
-import com.example.matsedillvikunnar.networking.NetworkCallback;
-import com.example.matsedillvikunnar.networking.NetworkManager;
-import com.example.matsedillvikunnar.ui.Activities.RecipesActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -45,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTextViewEmail =(TextView) findViewById(R.id.login_username);
-                mTextViewPassword =(TextView) findViewById(R.id.login_password);
+                mTextViewEmail =(TextView) findViewById(R.id.login_username_new);
+                mTextViewPassword =(TextView) findViewById(R.id.login_password_new);
 
                 if(mTextViewEmail.getText().toString().equals("admin") && mTextViewPassword.getText().toString().equals("admin")){
                     Intent i= new Intent(LoginActivity.this, MyPageActivity.class);
