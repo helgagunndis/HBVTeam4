@@ -19,7 +19,11 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.List;
 
 public class NetworkManager {
@@ -92,6 +96,20 @@ public class NetworkManager {
         );
         mQueue.add(request);
     }
+    public boolean createUser(String username,String email, String password){
+        String url = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendPath("signup")
+                .appendQueryParameter("username",username)
+                .appendQueryParameter("email",email)
+                .appendQueryParameter("password", password)
+                .build()
+                .toString();
+
+        return  true;
+    }
+
+
 
     // TODO : POST user , til að staðfesta að user sé í gagnagrunni
     // TODO : GET user
