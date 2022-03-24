@@ -8,6 +8,8 @@
 * IntelliJ IDEA  ( með java version 11 )
 ,,, ??
 
+emulator sem var notaður við gerð apps er `Pixel 5 API 26`
+
 ## Keysla
 
 * Sækja þarf bæði verkefni og keyra þau saman.
