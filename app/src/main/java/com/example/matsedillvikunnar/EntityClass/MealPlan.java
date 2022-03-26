@@ -3,19 +3,25 @@ package com.example.matsedillvikunnar.EntityClass;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class MealPlan {
     @SerializedName("mealPlanID")
     private long mMealPlanID;
-
     @SerializedName("numberOfWeekDay")
     private int mNumberOfWeekDay;
     @SerializedName("recipeCategory")
     private int  mRecipeCategory;
 
-    public MealPlan(long mealPlanID, int numberOfWeekDay, int recipeCategory) {
+    @SerializedName("mpLists")
+    private List<MPList> mMpLists;
+    @SerializedName("user")
+    private User mUser;
+
+    public MealPlan(long mealPlanID, int recipeCategory, List<MPList> mpLists) {
         mMealPlanID = mealPlanID;
-        mNumberOfWeekDay = numberOfWeekDay;
         mRecipeCategory = recipeCategory;
+        mMpLists = mpLists;
     }
 
     public long getMealPlanID() {
@@ -40,5 +46,13 @@ public class MealPlan {
 
     public void setRecipeCategory(int recipeCategory) {
         mRecipeCategory = recipeCategory;
+    }
+
+    public List<MPList> getMpLists() {
+        return mMpLists;
+    }
+
+    public void setMpLists(List<MPList> mpLists) {
+        mMpLists = mpLists;
     }
 }
