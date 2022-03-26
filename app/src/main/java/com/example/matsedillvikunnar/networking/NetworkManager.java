@@ -38,7 +38,6 @@ public class NetworkManager {
     private static NetworkManager mInstance;
     private static RequestQueue mQueue;
     private Context mContext;
-    private String token;
 
     public static synchronized NetworkManager getInstance(Context context){
         if(mInstance == null) {
@@ -59,46 +58,30 @@ public class NetworkManager {
         return mQueue;
     }
 
-    public void setToken(String token ){ this.token = token;}
-
     /**
-     * Getting response form server
-     * @param urlSpec
-     * @param method
-     * @return
-     * @throws IOException
-     */
-    public byte[] getUrlBytes(String urlSpec, String method) throws IOException {
-        URL url = new URL(urlSpec);
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        if(token!=null) conn.addRequestProperty("Authorization","Bearer"+ token);
-        conn.setRequestMethod(method);
-        try {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            InputStream in = conn.getInputStream();
-            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new IOException(conn.getResponseMessage() + ": with " + urlSpec);
-            }
-            int bytesRead = 0;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = in.read(buffer)) > 0) {
-                out.write(buffer, 0, bytesRead);
-            }
-            out.close();
-            return out.toByteArray();
-        } finally {
-            conn.disconnect();
-        }
-    }
-
-    public String getUrlString(String urlSpec, String method) throws IOException{
-        return new String(getUrlBytes(urlSpec,method));
-    }
-
-    /**
-     *
+     * Post request to the backend
+     * @param url
+     * @param requestBody
      * @param callback
      */
+    public void post(String url, JSONObject requestBody, NetworkCallback<String> callback ){
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST, url, requestBody, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                callback.onSuccess(response.toString());
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFailure(error.toString());
+            }
+        }
+        );
+        mQueue.add(request);
+    }
+
     public void getRecipes(final NetworkCallback<List<Recipe>> callback){
         StringRequest request = new StringRequest(
                 Request.Method.GET, BASE_URL + "recipes", new Response.Listener<String>() {
@@ -143,35 +126,7 @@ public class NetworkManager {
         );
         mQueue.add(request);
     }
-    public boolean createUser(String username,String email, String password){
-        String url = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendPath("signup1")
-                .appendQueryParameter("username",username)
-                .appendQueryParameter("userEmail",email)
-                .appendQueryParameter("userPassword", password)
-                .build()
-                .toString();
-        try {
-            String response = getUrlString(url,"POST");
-            Log.d(TAG, "Tókst að posta gögnum "+ response);
-        }
-        catch (Exception e){
-            Log.e(TAG, "error createUser");
-            return false;
-        }
-        return  true;
-    }
 
 
-
-
-
-
-    // TODO : POST user , til að staðfesta að user sé í gagnagrunni
-    // TODO : GET user
-    // TODO : POST MealPlan to MPList when user make new mealplan
-    // TODO : GET x Recipes for MealPlan -> x means how many days
-    // TODO : GET shopping list for MPList
 
 }
