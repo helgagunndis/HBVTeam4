@@ -2,6 +2,7 @@ package com.example.matsedillvikunnar.ui.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.R;
@@ -12,6 +13,7 @@ import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.example.matsedillvikunnar.networking.NetworkManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.squareup.picasso.Picasso;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.os.TestLooperManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -30,8 +33,7 @@ public class RecipesActivity extends AppCompatActivity {
     private int mRecipesIndex = 0;
     private List<Recipe> mRecipes;
     private TextView mTextViewTEST;
-    ActivityRecipesBinding binding;
-
+    private ImageView mImageTEST;
 
 
     @Override
@@ -39,7 +41,8 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
-        //mTextViewTEST = (TextView) findViewById(R.id.recipe_test);
+        mTextViewTEST = (TextView) findViewById(R.id.cardTitle);
+        mImageTEST = (ImageView) findViewById(R.id.cardImage);
 
         if(savedInstanceState != null){
             mRecipesIndex = savedInstanceState.getInt(KEY_RECIPES, 0);
@@ -52,7 +55,11 @@ public class RecipesActivity extends AppCompatActivity {
                 Log.d(TAG, "Successfully fetched questions.");
                 Log.d(TAG, "uppskrift:"+ mRecipes.get(0).getRecipeTitle());
                 // TEST skrif Sinneps Lax því það er fyrsta uppskriftinn
-                //mTextViewTEST.setText(mRecipes.get(0).getRecipeTitle());
+                mTextViewTEST.setText(mRecipes.get(0).getRecipeTitle());
+                //mImageTEST.
+
+                Picasso.get().load(mRecipes.get(0).getRecipeImage()).into(mImageTEST);
+                //TODO: kallar á fall til að birta uppskriftir
 
             }
             @Override
@@ -61,26 +68,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-       /* //bottom nav bar kallar á hin activity
-       //TODO: laga þannig að það notar ekki databinding
-        binding = ActivityRecipesBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.myPages:
-                    Intent intent1 = new Intent(RecipesActivity.this, MyPageActivity.class);
-                    startActivity(intent1);
-                    break;
-                case R.id.newPlan:
-                    Intent intent2 = new Intent(RecipesActivity.this, MealPlanActivity.class);
-                    startActivity(intent2);
-                    break;
-                case R.id.recipes:
-                    break;
-            }
-            return true;
-        });*/
-
+        //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(2);

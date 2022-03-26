@@ -43,19 +43,11 @@
             android:layout_below="@+id/cardImage"
             android:id="@+id/cardTitle"
             android:gravity="center_vertical"
-            android:text="Card Title"
+            android:text="..."
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <ProgressBar
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/cardProgressDialog"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
-
-
-    </RelativeLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
