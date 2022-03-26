@@ -7,7 +7,7 @@ import java.util.List;
 
 public class User {
     @SerializedName("ID")
-    private int mID;
+    private long mID;
 
     @SerializedName("username")
     private String mUsername;
@@ -17,7 +17,7 @@ public class User {
     private String mUserPassword;
     // TODO : Bæta við Category sem fylgir notandanum
     @SerializedName("mealPlanList")
-    private List<MPList> mMealPlan;
+    private List<MealPlan> mMealPlanList;
 
     public User(String username, String userEmail, String userPassword) {
         mUsername = username;
@@ -25,7 +25,7 @@ public class User {
         mUserPassword = userPassword;
     }
 
-    public int getID() {
+    public long getID() {
         return mID;
     }
 
@@ -57,11 +57,11 @@ public class User {
         mUserPassword = userPassword;
     }
 
-    public List<MPList> getMealPlan() {
-        return mMealPlan;
+    public List<MealPlan> getMealPlan() {
+        return mMealPlanList;
     }
 
-    public void setMealPlan(List<MPList> mealPlan) {
-        mMealPlan = mealPlan;
+    public void setMealPlan(List<MealPlan> mealPlanList) {
+        mMealPlanList = mealPlanList;
     }
 }

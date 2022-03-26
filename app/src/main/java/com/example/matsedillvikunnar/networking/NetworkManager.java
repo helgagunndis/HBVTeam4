@@ -82,6 +82,28 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
+    /**
+     * Get request to the backend
+     * @param url
+     * @param callback
+     */
+    public void get(String url, NetworkCallback<String> callback){
+        StringRequest request = new StringRequest(
+                Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onFailure(error.toString());
+            }
+        }
+        );
+        mQueue.add(request);
+    }
+
     public void getRecipes(final NetworkCallback<List<Recipe>> callback){
         StringRequest request = new StringRequest(
                 Request.Method.GET, BASE_URL + "recipes", new Response.Listener<String>() {

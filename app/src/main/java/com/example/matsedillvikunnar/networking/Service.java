@@ -1,6 +1,7 @@
 package com.example.matsedillvikunnar.networking;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.matsedillvikunnar.EntityClass.User;
 import com.google.gson.Gson;
@@ -15,6 +16,7 @@ public class Service {
     public Service(Context context) {
         this.mNetworkManager = NetworkManager.getInstance(context);
     }
+
     public void postSignup(JSONObject requestBody, NetworkCallback<User> callback) {
         mNetworkManager.post(BASE_URL + "rest/signup", requestBody, new NetworkCallback<String>() {
             @Override
@@ -30,9 +32,23 @@ public class Service {
             }
         });
     }
+    public void postUser(JSONObject requestBody, NetworkCallback<User> callback) {
+        mNetworkManager.post(BASE_URL + "rest/login", requestBody, new NetworkCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                User user = gson.fromJson(result, User.class);
+                Log.d(TAG, "user: " + user );
 
-    // TODO : POST user , til að staðfesta að user sé í gagnagrunni
-    // TODO : GET user
+                callback.onSuccess(user);
+            }
+            @Override
+            public void onFailure(String error) {
+                callback.onFailure(error);
+            }
+        });
+    }
+
     // TODO : POST MealPlan to MPList when user make new mealplan
     // TODO : GET x Recipes for MealPlan -> x means how many days
     // TODO : GET shopping list for MPList
