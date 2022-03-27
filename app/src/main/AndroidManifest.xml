@@ -17,9 +17,6 @@
             android:name=".ui.Activities.RecipesActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.Activities.MealPlanActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.Activities.SetupActivity"
             android:exported="false" />
         <activity
@@ -28,6 +25,9 @@
         <activity
             android:name=".ui.Activities.MyPageActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.Activities.MealPlanActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
