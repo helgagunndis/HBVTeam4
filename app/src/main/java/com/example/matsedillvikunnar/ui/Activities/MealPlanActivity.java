@@ -6,17 +6,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.matsedillvikunnar.EntityClass.Recipe;
+import com.example.matsedillvikunnar.EntityClass.User;
+import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.databinding.ActivityMealplanBinding;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.example.matsedillvikunnar.networking.NetworkManager;
+import com.example.matsedillvikunnar.networking.Service;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -32,8 +38,6 @@ public class MealPlanActivity extends AppCompatActivity {
     private List mMealPlan;
     private TextView mTextViewTEST2;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,32 +45,17 @@ public class MealPlanActivity extends AppCompatActivity {
 
         mTextViewTEST2 = (TextView) findViewById(R.id.textView18);
 
-
         if(savedInstanceState != null){
             mMealPlanIndex = savedInstanceState.getInt(KEY_MEALPLAN, 0);
         }
-        JSONObject jsonObject = new JSONObject();
-        NetworkManager networkManager = NetworkManager.getInstance(this);
-        networkManager.getMealPlan(jsonObject, new NetworkCallback<List>() {
 
-            @Override
-            public void onSuccess(List result) {
-
-
-                mMealPlan = result;
-                Log.d(TAG, "Successfully fetched MEALPLAN.");
-
-                //Toast.makeText(MealPlanActivity.this,"tókst að ná í mealplan",Toast.LENGTH_SHORT).show();
-                // TEST skrif Sinneps Lax því það er fyrsta uppskriftinn
-                //MealPlan mpList = mMealPlan.getMpLists();
-                //mTextViewTEST2.setText(mMealPlan.getMpLists().getRecipe(0));
+        // MealPlan tekur inn hversu marga daga þú villt fá og í hvaða flokki
+            try {
+                mealPlan(1,4);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            @Override
-            public void onFailure(String errorString) {
-                mTextViewTEST2.setText("Virkar ekki");
-                Log.e(TAG, "Failed to get questions: " + errorString);
-            }
-        });
+
 
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -90,6 +79,26 @@ public class MealPlanActivity extends AppCompatActivity {
                         break;
                 }
                 return false;
+            }
+        });
+    }
+
+    private void mealPlan(Integer days, Integer category) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("numberOfWeekDay", days);
+        jsonObject.put("recipeCategory", category);
+
+        Service service = new Service(this);
+        service.postMealplan(jsonObject, new NetworkCallback<List<Recipe>>() {
+            @Override
+            public void onSuccess(List<Recipe> result) {
+                mTextViewTEST2.setText(result.get(0).getRecipeTitle());
+                Log.d(TAG, "Notandi fannst" + result );
+            }
+            @Override
+            public void onFailure(String error) {
+                mTextViewTEST2.setText("Virkar ekki");
+                Log.e(TAG, "Failed to get recipes: " + error);
             }
         });
     }
