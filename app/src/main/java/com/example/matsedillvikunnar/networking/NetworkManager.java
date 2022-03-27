@@ -3,8 +3,6 @@ package com.example.matsedillvikunnar.networking;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -14,23 +12,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.matsedillvikunnar.EntityClass.Recipe;
-import com.example.matsedillvikunnar.EntityClass.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class NetworkManager {
     private static final String BASE_URL = "http://10.0.2.2:8080/";
@@ -104,6 +92,7 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
+
     public void getRecipes(final NetworkCallback<List<Recipe>> callback){
         StringRequest request = new StringRequest(
                 Request.Method.GET, BASE_URL + "recipes", new Response.Listener<String>() {
@@ -149,6 +138,22 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
+    public void getMealPlan(JSONObject requestBody, NetworkCallback<List> callback) {
+        mInstance.post(BASE_URL + "mealplan", requestBody, new NetworkCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                List<Recipe> mealplan = gson.fromJson(result, List.class);
+                Log.d(TAG, "mealplan: " + mealplan );
+
+                callback.onSuccess(mealplan);
+            }
+            @Override
+            public void onFailure(String error) {
+                callback.onFailure(error);
+            }
+        });
+    }
 
 
 }
