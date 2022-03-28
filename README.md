@@ -8,7 +8,7 @@
 
 emulator sem var notaður við gerð apps er `Pixel 5 API 26`
 
-## Keysla
+### Keysla
 
 * Sækja þarf bæði verkefni og keyra þau saman.
 * Vefþjónustan er byggð og keyrð í IntelliJ IDEA sem keyist á http://localhost:8080/
