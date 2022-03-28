@@ -138,7 +138,7 @@ public class NetworkManager {
         mQueue.add(request);
     }
 
-    public void getMealPlan(JSONObject requestBody, NetworkCallback<List> callback) {
+    public void getMealPlan(JSONObject requestBody, NetworkCallback<List<Recipe>> callback) {
         mInstance.post(BASE_URL + "mealplan", requestBody, new NetworkCallback<String>() {
             @Override
             public void onSuccess(String result) {

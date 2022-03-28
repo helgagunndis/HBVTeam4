@@ -49,12 +49,13 @@ public class MealPlanActivity extends AppCompatActivity {
             mMealPlanIndex = savedInstanceState.getInt(KEY_MEALPLAN, 0);
         }
 
+        getMealPlan();
         // MealPlan tekur inn hversu marga daga þú villt fá og í hvaða flokki
-            try {
+           /* try {
                 mealPlan(1,4);
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
 
 
         //bottom nav bar kallar á hin activity
@@ -82,6 +83,21 @@ public class MealPlanActivity extends AppCompatActivity {
             }
         });
     }
+    private void getMealPlan(){
+        Service service = new Service(this);
+        service.getMealPlan("1", "2", new NetworkCallback<List<Recipe>>() {
+            @Override
+            public void onSuccess(List result) {
+                Log.d(TAG, "Notandi fannst" + result );
+            }
+            @Override
+            public void onFailure(String error) {
+                Log.e(TAG, "Can't find user" + error);
+            }
+        });
+
+    }
+
 
     private void mealPlan(Integer days, Integer category) throws JSONException {
         JSONObject jsonObject = new JSONObject();

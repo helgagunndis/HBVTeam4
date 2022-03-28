@@ -1,8 +1,10 @@
 package com.example.matsedillvikunnar.networking;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.EntityClass.User;
@@ -69,6 +71,29 @@ public class Service {
             @Override
             public void onFailure(String error) {
                 callback.onFailure(error);
+            }
+        });
+    }
+
+    public void getMealPlan(String day, String category, NetworkCallback<List<Recipe>>callback) {
+        String url = Uri.parse(BASE_URL+"rest/mealplan")
+                .buildUpon()
+                //.appendQueryParameter("numberOfWeekDay", day)
+                //.appendQueryParameter("recipeCategory", category)
+                .build().toString();
+        System.out.println(url);
+
+        mNetworkManager.get(url, new NetworkCallback<String>(){
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<List<Recipe>>(){}.getType();
+                List<Recipe> recipes = gson.fromJson(result, listType);
+                callback.onSuccess(recipes);
+            }
+            @Override
+            public void onFailure(String errorString) {
+                callback.onFailure("  " + errorString);
             }
         });
     }
