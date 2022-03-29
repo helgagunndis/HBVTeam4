@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.matsedillvikunnar.EntityClass.User;
 import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
+import com.example.matsedillvikunnar.Service.UserService;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.example.matsedillvikunnar.networking.NetworkManager;
 import com.example.matsedillvikunnar.networking.Service;
@@ -70,7 +71,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         jsonObject.put("userEmail", email);
         jsonObject.put("userPassword", password);
 
-        Service service = new Service(this);
+        UserService service = new UserService(this);
         service.postSignup(jsonObject, new NetworkCallback<User>() {
             @Override
             public void onSuccess(User result) {

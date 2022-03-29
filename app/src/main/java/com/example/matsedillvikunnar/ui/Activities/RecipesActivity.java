@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.matsedillvikunnar.EntityClass.Recipe;
+import com.example.matsedillvikunnar.EntityClass.User;
+import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
+import com.example.matsedillvikunnar.Service.RecipeService;
 import com.example.matsedillvikunnar.databinding.ActivityMyPageBinding;
 import com.example.matsedillvikunnar.databinding.ActivityRecipeBinding;
 import com.example.matsedillvikunnar.databinding.ActivityRecipesBinding;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.example.matsedillvikunnar.networking.NetworkManager;
+import com.example.matsedillvikunnar.networking.Service;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.squareup.picasso.Picasso;
@@ -23,6 +27,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -44,11 +52,12 @@ public class RecipesActivity extends AppCompatActivity {
         mTextViewTEST = (TextView) findViewById(R.id.cardTitle);
         mImageTEST = (ImageView) findViewById(R.id.cardImage);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             mRecipesIndex = savedInstanceState.getInt(KEY_RECIPES, 0);
         }
-        NetworkManager networkManager = NetworkManager.getInstance(this);
-        networkManager.getRecipes(new NetworkCallback<List<Recipe>>() {
+
+        RecipeService service = new RecipeService(this);
+        service.getRecipes(new NetworkCallback<List<Recipe>>() {
             @Override
             public void onSuccess(List<Recipe> result) {
                 mRecipes = result;
@@ -91,7 +100,6 @@ public class RecipesActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
 
