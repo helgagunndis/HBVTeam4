@@ -52,6 +52,7 @@ public class MealPlanActivity extends AppCompatActivity {
             mMealPlanIndex = savedInstanceState.getInt(KEY_MEALPLAN, 0);
         }
 
+        // Hversu marga daga á að ná í og í hvaða flokk
         getMealPlan(7,2);
 
         //bottom nav bar kallar á hin activity
@@ -84,18 +85,9 @@ public class MealPlanActivity extends AppCompatActivity {
         getMealPlan(7,2);
     }
 
-    private void getMealPlan(int numberOfWeekDay,int recipeCategory){
-        // TODO : ná í gögn sem eru með ákveðið marga daga og vissa category
-        // þurfum líklega að gera það í gegn um Uri.parse en ekki sem jsonObject
-        JSONObject jsonObject = new JSONObject();
-        try{
-            jsonObject.put("numberOfWeekDay", numberOfWeekDay);
-            jsonObject.put("recipeCategory", recipeCategory);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    private void getMealPlan(int days,int category){
         RecipeService service = new RecipeService(this);
-        service.getMealPlan(new NetworkCallback<List<Recipe>>() {
+        service.getMealPlan(category, days,new NetworkCallback<List<Recipe>>() {
             @Override
             public void onSuccess(List<Recipe> result) {
                 mTextViewTEST2.setText(result.get(0).getRecipeTitle());
@@ -106,7 +98,5 @@ public class MealPlanActivity extends AppCompatActivity {
                 Log.e(TAG, "Ekki hægt að finna uppskrfitir" + error);
             }
         });
-
-
     }
 }

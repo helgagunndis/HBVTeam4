@@ -1,6 +1,7 @@
 package com.example.matsedillvikunnar.Service;
 
 import android.content.Context;
+import android.net.Uri;
 
 import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
@@ -35,8 +36,12 @@ public class RecipeService {
         });
     }
 
-    public void getMealPlan(NetworkCallback<List<Recipe>> callback) {
-        mNetworkManager.get("rest/mealplan", new NetworkCallback<String>() {
+    public void getMealPlan(int category, int days , NetworkCallback<List<Recipe>> callback) {
+        Uri.Builder uri = Uri.parse("rest/mealplan").buildUpon();
+        uri.appendQueryParameter("recipeCategory", Integer.toString(category));
+        uri.appendQueryParameter("numberOfWeekDay", Integer.toString(days));
+
+        mNetworkManager.get(uri.build().toString(), new NetworkCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
