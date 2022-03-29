@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +52,7 @@ public class MealPlanActivity extends AppCompatActivity {
             mMealPlanIndex = savedInstanceState.getInt(KEY_MEALPLAN, 0);
         }
 
-        getMealPlan(1,2);
+        getMealPlan(7,2);
 
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -78,6 +79,11 @@ public class MealPlanActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void  generateMealPlan(View v){
+        getMealPlan(7,2);
+    }
+
     private void getMealPlan(int numberOfWeekDay,int recipeCategory){
         // TODO : ná í gögn sem eru með ákveðið marga daga og vissa category
         // þurfum líklega að gera það í gegn um Uri.parse en ekki sem jsonObject
@@ -100,6 +106,7 @@ public class MealPlanActivity extends AppCompatActivity {
                 Log.e(TAG, "Ekki hægt að finna uppskrfitir" + error);
             }
         });
+
 
     }
 }
