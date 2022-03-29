@@ -15,12 +15,14 @@ import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.EntityClass.User;
 import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
+import com.example.matsedillvikunnar.Service.RecipeService;
 import com.example.matsedillvikunnar.databinding.ActivityMealplanBinding;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.example.matsedillvikunnar.networking.NetworkManager;
 import com.example.matsedillvikunnar.networking.Service;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,14 +51,7 @@ public class MealPlanActivity extends AppCompatActivity {
             mMealPlanIndex = savedInstanceState.getInt(KEY_MEALPLAN, 0);
         }
 
-        getMealPlan();
-        // MealPlan tekur inn hversu marga daga þú villt fá og í hvaða flokki
-           /* try {
-                mealPlan(1,4);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }*/
-
+        getMealPlan(1,2);
 
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -83,39 +78,28 @@ public class MealPlanActivity extends AppCompatActivity {
             }
         });
     }
-    private void getMealPlan(){
-        Service service = new Service(this);
-        service.getMealPlan("1", "2", new NetworkCallback<List<Recipe>>() {
-            @Override
-            public void onSuccess(List result) {
-                Log.d(TAG, "Notandi fannst" + result );
-            }
-            @Override
-            public void onFailure(String error) {
-                Log.e(TAG, "Can't find user" + error);
-            }
-        });
-
-    }
-
-
-    private void mealPlan(Integer days, Integer category) throws JSONException {
+    private void getMealPlan(int numberOfWeekDay,int recipeCategory){
+        // TODO : ná í gögn sem eru með ákveðið marga daga og vissa category
+        // þurfum líklega að gera það í gegn um Uri.parse en ekki sem jsonObject
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("numberOfWeekDay", days);
-        jsonObject.put("recipeCategory", category);
-
-        Service service = new Service(this);
-        service.postMealplan(jsonObject, new NetworkCallback<List<Recipe>>() {
+        try{
+            jsonObject.put("numberOfWeekDay", numberOfWeekDay);
+            jsonObject.put("recipeCategory", recipeCategory);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RecipeService service = new RecipeService(this);
+        service.getMealPlan(new NetworkCallback<List<Recipe>>() {
             @Override
             public void onSuccess(List<Recipe> result) {
                 mTextViewTEST2.setText(result.get(0).getRecipeTitle());
-                Log.d(TAG, "Notandi fannst" + result );
+                Log.d(TAG, "Fann þessar uppskriftir" + result );
             }
             @Override
             public void onFailure(String error) {
-                mTextViewTEST2.setText("Virkar ekki");
-                Log.e(TAG, "Failed to get recipes: " + error);
+                Log.e(TAG, "Ekki hægt að finna uppskrfitir" + error);
             }
         });
+
     }
 }

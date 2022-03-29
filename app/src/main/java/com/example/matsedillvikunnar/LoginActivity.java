@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.matsedillvikunnar.EntityClass.User;
+import com.example.matsedillvikunnar.Service.UserService;
 import com.example.matsedillvikunnar.fragments.MyPageFragment;
 import com.example.matsedillvikunnar.networking.NetworkManager;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
@@ -80,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         jsonObject.put("username", username);
         jsonObject.put("userPassword", password);
 
-        Service service = new Service(this);
+        UserService service = new UserService(this);
         service.postUser(jsonObject, new NetworkCallback<User>() {
             @Override
             public void onSuccess(User result) {

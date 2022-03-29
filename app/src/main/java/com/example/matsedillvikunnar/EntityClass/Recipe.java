@@ -38,6 +38,8 @@ public class Recipe {
         mRecipeCredit = recipeCredit;
         mIngredients = ingredients;
     }
+    public Recipe() {
+    }
 
     public String getRecipeTitle() {
         return mRecipeTitle;

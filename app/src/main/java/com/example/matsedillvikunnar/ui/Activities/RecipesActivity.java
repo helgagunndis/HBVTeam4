@@ -8,6 +8,7 @@ import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.EntityClass.User;
 import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
+import com.example.matsedillvikunnar.Service.RecipeService;
 import com.example.matsedillvikunnar.databinding.ActivityMyPageBinding;
 import com.example.matsedillvikunnar.databinding.ActivityRecipeBinding;
 import com.example.matsedillvikunnar.databinding.ActivityRecipesBinding;
@@ -55,8 +56,8 @@ public class RecipesActivity extends AppCompatActivity {
             mRecipesIndex = savedInstanceState.getInt(KEY_RECIPES, 0);
         }
 
-        NetworkManager networkManager = NetworkManager.getInstance(this);
-        networkManager.getRecipes(new NetworkCallback<List<Recipe>>() {
+        RecipeService service = new RecipeService(this);
+        service.getRecipes(new NetworkCallback<List<Recipe>>() {
             @Override
             public void onSuccess(List<Recipe> result) {
                 mRecipes = result;
