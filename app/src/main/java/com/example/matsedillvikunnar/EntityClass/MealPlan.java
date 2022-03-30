@@ -12,11 +12,8 @@ public class MealPlan {
     private int mNumberOfWeekDay;
     @SerializedName("recipeCategory")
     private int  mRecipeCategory;
-
     @SerializedName("mpLists")
     private List<MPList> mMpLists;
-    @SerializedName("user")
-    private User mUser;
 
     public MealPlan(long mealPlanID, int recipeCategory, List<MPList> mpLists) {
         mMealPlanID = mealPlanID;
@@ -26,10 +23,6 @@ public class MealPlan {
 
     public long getMealPlanID() {
         return mMealPlanID;
-    }
-
-    public void setMealPlanID(long mealPlanID) {
-        mMealPlanID = mealPlanID;
     }
 
     public int getNumberOfWeekDay() {

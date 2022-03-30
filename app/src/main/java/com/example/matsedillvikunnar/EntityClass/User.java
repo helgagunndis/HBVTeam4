@@ -15,14 +15,18 @@ public class User {
     private String mUserEmail;
     @SerializedName("userPassword")
     private String mUserPassword;
-    // TODO : Bæta við Category sem fylgir notandanum
     @SerializedName("mealPlanList")
     private List<MealPlan> mMealPlanList;
+    // TODO : Bæta við Category sem fylgir notandanum
+
 
     public User(String username, String userEmail, String userPassword) {
         mUsername = username;
         mUserEmail = userEmail;
         mUserPassword = userPassword;
+    }
+    public User() {
+
     }
 
     public long getID() {

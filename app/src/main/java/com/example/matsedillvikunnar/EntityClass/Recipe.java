@@ -24,8 +24,7 @@ public class Recipe {
     private String mRecipeCredit;
     @SerializedName("ingredients")
     private List<Ingredient> mIngredients;
-    @SerializedName("mpLists")
-    private List<MPList> mMpLists;
+
 
     public Recipe(String recipeTitle, int recipeCategory, String recipeSummary, String recipeImage, String recipeMethod, String recipeTime, int recipeServings, String recipeCredit, List<Ingredient> ingredients) {
         mRecipeTitle = recipeTitle;
@@ -121,11 +120,4 @@ public class Recipe {
         mIngredients = ingredients;
     }
 
-    public List<MPList> getMpLists() {
-        return mMpLists;
-    }
-
-    public void setMpLists(List<MPList> mpLists) {
-        mMpLists = mpLists;
-    }
 }

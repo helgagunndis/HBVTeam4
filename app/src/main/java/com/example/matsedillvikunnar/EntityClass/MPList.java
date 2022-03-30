@@ -9,7 +9,6 @@ public class MPList {
 
     @SerializedName("listID")
     private long mListID;
-
     @SerializedName("recipe")
     private Recipe mRecipe;
     @SerializedName("mealPlan")
