@@ -42,8 +42,7 @@ public class RecipesActivity extends AppCompatActivity {
     private List<Recipe> mRecipes;
     private TextView mTextViewTEST;
     private ImageView mImageTEST;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +55,12 @@ public class RecipesActivity extends AppCompatActivity {
             mRecipesIndex = savedInstanceState.getInt(KEY_RECIPES, 0);
         }
 
+        getRecipes();
+
+        getBottomNav();
+    }
+
+    public void getRecipes(){
         RecipeService service = new RecipeService(this);
         service.getRecipes(new NetworkCallback<List<Recipe>>() {
             @Override
@@ -76,7 +81,9 @@ public class RecipesActivity extends AppCompatActivity {
                 Log.e(TAG, "Failed to get questions: " + errorString);
             }
         });
+    }
 
+    public void getBottomNav(){
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
@@ -101,6 +108,5 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }
