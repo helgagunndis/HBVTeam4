@@ -14,9 +14,8 @@ public class MPList {
     @SerializedName("mealPlan")
     private MealPlan mMealPlan;
 
-    public MPList(Recipe recipe, MealPlan mealPlan) {
+    public MPList(Recipe recipe) {
         mRecipe = recipe;
-        mMealPlan = mealPlan;
     }
 
     public long getListID() {
