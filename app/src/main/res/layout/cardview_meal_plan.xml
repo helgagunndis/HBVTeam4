@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/show_shopping_list_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="10dp"
+    tools:layout_editor_absoluteX="10dp"
+    tools:layout_editor_absoluteY="10dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/meal_plan_date"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/meal_plan_date"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="dagsetning"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/show_meal_plan_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/orange_2"
+                app:srcCompat="@drawable/outline_menu_book_white_36dp" />
+
+            <ImageButton
+                android:id="@+id/imageButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/orange_2"
+                app:srcCompat="@drawable/outline_shopping_cart_white_36dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
