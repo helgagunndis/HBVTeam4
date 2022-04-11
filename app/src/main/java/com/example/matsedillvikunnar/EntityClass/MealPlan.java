@@ -3,6 +3,7 @@ package com.example.matsedillvikunnar.EntityClass;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class MealPlan {
@@ -14,6 +15,9 @@ public class MealPlan {
     private int  mRecipeCategory;
     @SerializedName("mpLists")
     private List<MPList> mMpLists;
+
+    @SerializedName("created")
+    private Timestamp mCreated;
 
     public MealPlan(long mealPlanID, int recipeCategory, List<MPList> mpLists) {
         mMealPlanID = mealPlanID;
@@ -48,4 +52,13 @@ public class MealPlan {
     public void setMpLists(List<MPList> mpLists) {
         mMpLists = mpLists;
     }
+
+    public Timestamp getCreated() {
+        return mCreated;
+    }
+
+    public void setCreated(Timestamp created) {
+        mCreated = created;
+    }
+
 }

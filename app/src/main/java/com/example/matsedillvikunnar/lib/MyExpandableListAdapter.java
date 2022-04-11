@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.R;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
@@ -96,8 +99,11 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.listrow_group_meal_plan, null);
         }
-        MealPlan mealplan = (MealPlan) getGroup(groupPosition);
-        ((CheckedTextView) convertView).setText(""+groupPosition);
+        Timestamp created = mealPlan.get(groupPosition).getCreated();
+        Date date = new Date();
+        date.setTime(created.getTime());
+        String formattedDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
+        ((CheckedTextView) convertView).setText(formattedDate);
         ((CheckedTextView) convertView).setChecked(isExpanded);
         return convertView;
     }

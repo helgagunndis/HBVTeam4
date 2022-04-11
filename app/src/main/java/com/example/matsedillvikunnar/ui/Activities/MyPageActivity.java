@@ -13,14 +13,11 @@ import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.example.matsedillvikunnar.EntityClass.MPList;
 import com.example.matsedillvikunnar.EntityClass.MealPlan;
-import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.UserService;
 import com.example.matsedillvikunnar.lib.MyExpandableListAdapter;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
-import com.example.matsedillvikunnar.ui.Fragment.gridMealPlanFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -45,10 +42,10 @@ public class MyPageActivity extends AppCompatActivity {
 
 
 
-        mTextViewUsername = (TextView) findViewById(R.id.username);
+       //mTextViewUsername = (TextView) findViewById(R.id.username);
         Intent intent = getIntent();
         username= intent.getStringExtra(USER_NAME);
-        mTextViewUsername.setText(username);
+        // mTextViewUsername.setText(username);
         findMealPlan(intent.getStringExtra(USER_NAME));
 
 
@@ -56,7 +53,7 @@ public class MyPageActivity extends AppCompatActivity {
          //openMealPlanFragment();
 
         //bottom nav bar kallar á hin activity
-       /* BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -74,16 +71,10 @@ public class MyPageActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        });*/
+        });
 
     }
-    private void openMealPlanFragment(){
-        Bundle bundle= new Bundle();
-        bundle.putString("username",username);
-        Fragment fragment = new gridMealPlanFragment();
-        fragment.setArguments(bundle);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
-    }
+
     private void findMealPlan(String username) {
         UserService service = new UserService(this);
         service.getMealPlan(username, new NetworkCallback<List<MealPlan>>() {
