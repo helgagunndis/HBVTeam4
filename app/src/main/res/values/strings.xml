@@ -43,6 +43,8 @@
     <string name="friday_recipe">föstudags uppskrift</string>
     <string name="saturday_recipe">laugardags uppskrift</string>
     <string name="sunday_recipe">sunnudags uppskrift</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

@@ -6,26 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.Activities.MyPageActivity">
 
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="@string/username"
+    <LinearLayout
+        android:id="@+id/LinearLayout_meal_plan"
+        android:layout_width="match_parent"
+        android:layout_height="598dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.859"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.349"
+        tools:layout_editor_absoluteX="-8dp">
 
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="my page activity"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="299dp" />
+        <ExpandableListView
+            android:id="@+id/listView_mealPlan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ExpandableListView>
 
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -34,5 +29,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:menu="@menu/bottom_nav_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
