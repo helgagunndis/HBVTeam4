@@ -3,6 +3,8 @@ package com.example.matsedillvikunnar.ui.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.EntityClass.User;
@@ -38,45 +40,55 @@ public class RecipesActivity extends AppCompatActivity {
     private final String TAG ="RecipesActivity";
     private static final String KEY_RECIPES = "recipes";
 
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     private int mRecipesIndex = 0;
     private List<Recipe> mRecipes;
     private TextView mTextViewTEST;
     private ImageView mImageTEST;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
-        mTextViewTEST = (TextView) findViewById(R.id.cardTitle);
-        mImageTEST = (ImageView) findViewById(R.id.cardImage);
-
         if (savedInstanceState != null) {
             mRecipesIndex = savedInstanceState.getInt(KEY_RECIPES, 0);
         }
 
+        getRecipes();
+
+        getBottomNav();
+    }
+
+    public void getRecipes(){
         RecipeService service = new RecipeService(this);
         service.getRecipes(new NetworkCallback<List<Recipe>>() {
             @Override
             public void onSuccess(List<Recipe> result) {
                 mRecipes = result;
-                Log.d(TAG, "Successfully fetched questions.");
-                Log.d(TAG, "uppskrift:"+ mRecipes.get(0).getRecipeTitle());
-                // TEST skrif Sinneps Lax því það er fyrsta uppskriftinn
-                mTextViewTEST.setText(mRecipes.get(0).getRecipeTitle());
-                //mImageTEST.
+                Log.d(TAG, "Successfully fetched recipes.");
 
-                Picasso.get().load(mRecipes.get(0).getRecipeImage()).into(mImageTEST);
-                //TODO: kallar á fall til að birta uppskriftir
+                recyclerView = findViewById(R.id.recipeCards);
+                recyclerView.setHasFixedSize(true);
+                layoutManager = new LinearLayoutManager(RecipesActivity
+            .this);
+                recyclerView.setLayoutManager(layoutManager);
+
+                mAdapter = new RecipesAdapter(mRecipes, RecipesActivity.this);
+                recyclerView.setAdapter(mAdapter);
 
             }
             @Override
             public void onFailure(String errorString) {
-                Log.e(TAG, "Failed to get questions: " + errorString);
+                Log.e(TAG, "Failed to get recipes: " + errorString);
             }
         });
+    }
 
+    public void getBottomNav(){
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
@@ -101,6 +113,5 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }
