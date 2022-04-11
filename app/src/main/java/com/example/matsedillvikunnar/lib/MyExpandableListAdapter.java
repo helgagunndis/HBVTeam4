@@ -7,12 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.R;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
+import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,11 +49,15 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
         System.out.println("click on child view");
         String recipe = mealPlan.get(groupPosition).getMpLists().get(childPosition).getRecipe().getRecipeTitle();
+        String img = mealPlan.get(groupPosition).getMpLists().get(childPosition).getRecipe().getRecipeImage();
 
+        System.out.println(img);
         TextView text = null;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.listrow_details_meal_plan, null);
         }
+        ImageView imgView = (ImageView) convertView.findViewById(R.id.recipe_img);
+        Picasso.get().load(img).into(imgView);
         text = (TextView) convertView.findViewById(R.id.textView_Recipe);
         text.setText(recipe);
         convertView.setOnClickListener(new View.OnClickListener() {

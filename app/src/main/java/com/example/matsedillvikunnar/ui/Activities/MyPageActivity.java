@@ -28,29 +28,19 @@ public class MyPageActivity extends AppCompatActivity {
     private final String TAG ="MyPageActivity";
     private final String USER_NAME="com.example.matsedillvikunnar.username";
 
-    private RecyclerView mRecyclerView;
     private TextView mTextViewUsername;
-    private String username;
+    private String mUsername;
     private List<MealPlan> mMealPlanList;
-
-    SparseArray<MealPlan> mealPlan = new SparseArray<MealPlan>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
 
-
-
-       //mTextViewUsername = (TextView) findViewById(R.id.username);
+        mTextViewUsername = (TextView) findViewById(R.id.username_meal_plan);
         Intent intent = getIntent();
-        username= intent.getStringExtra(USER_NAME);
-        // mTextViewUsername.setText(username);
-        findMealPlan(intent.getStringExtra(USER_NAME));
-
-
-
-         //openMealPlanFragment();
+        mUsername= intent.getStringExtra(USER_NAME);
+        mTextViewUsername.setText(mUsername);
+        findMealPlan(mUsername);
 
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -86,7 +76,6 @@ public class MyPageActivity extends AppCompatActivity {
                 MyExpandableListAdapter adapter = new MyExpandableListAdapter(MyPageActivity.this, mMealPlanList);
                 listView.setAdapter(adapter);
             }
-
             @Override
             public void onFailure(String errorString) {
                 Log.e(TAG, "Ekki hægt að ná í MealPlan: " + errorString);
