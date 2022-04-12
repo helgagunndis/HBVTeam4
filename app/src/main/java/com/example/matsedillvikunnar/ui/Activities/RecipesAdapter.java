@@ -21,17 +21,19 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
     List<Recipe> recipeList;
     Context context;
+    private OnNoteListener mOnNoteListener;
 
-    public RecipesAdapter(List<Recipe> recipeList, Context context) {
+    public RecipesAdapter(List<Recipe> recipeList, Context context, OnNoteListener onNoteListener) {
         this.recipeList = recipeList;
         this.context = context;
+        this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card,parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, mOnNoteListener);
         return holder;
     }
 
@@ -47,15 +49,31 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
         return recipeList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public interface OnNoteListener {
+        void onNoteClick(int position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView cardImage;
         TextView cardTitle;
+        OnNoteListener onNoteListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             cardTitle = itemView.findViewById(R.id.cardTitle);
             cardImage = itemView.findViewById(R.id.cardImage);
+            this.onNoteListener = onNoteListener;
+
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            onNoteListener.onNoteClick(getAbsoluteAdapterPosition());
 
         }
     }
+
+
 }

@@ -34,9 +34,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RecipesActivity extends AppCompatActivity {
+public class RecipesActivity extends AppCompatActivity implements RecipesAdapter.OnNoteListener{
     private final String TAG ="RecipesActivity";
     private static final String KEY_RECIPES = "recipes";
 
@@ -77,7 +78,7 @@ public class RecipesActivity extends AppCompatActivity {
             .this);
                 recyclerView.setLayoutManager(layoutManager);
 
-                mAdapter = new RecipesAdapter(mRecipes, RecipesActivity.this);
+                mAdapter = new RecipesAdapter(mRecipes, RecipesActivity.this, RecipesActivity.this::onNoteClick);
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -114,4 +115,13 @@ public class RecipesActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onNoteClick(int position) {
+        Log.d(TAG, "onNoteClick: success");
+        
+        mRecipes.get(position);
+        Intent intent =  new Intent(this, RecipeActivity.class);
+        //intent.putExtra("individual_recipe", (Serializable) mRecipes.get(position));
+        startActivity(intent);
+    }
 }
