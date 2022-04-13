@@ -20,6 +20,7 @@
             android:layout_weight="1"
             tools:srcCompat="@tools:sample/avatars" />
 
+
         <TextView
             android:id="@+id/textView_Recipe"
             android:layout_width="280dp"

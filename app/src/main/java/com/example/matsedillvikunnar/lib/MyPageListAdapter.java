@@ -22,13 +22,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class MyExpandableListAdapter extends BaseExpandableListAdapter {
+public class MyPageListAdapter extends BaseExpandableListAdapter {
 
     private final List<MealPlan> mealPlan;
     public LayoutInflater inflater;
     public Activity activity;
 
-    public MyExpandableListAdapter(Activity act, List<MealPlan> mealPlan) {
+    public MyPageListAdapter(Activity act, List<MealPlan> mealPlan) {
         activity = act;
         this.mealPlan = mealPlan;
         inflater = act.getLayoutInflater();
@@ -69,6 +69,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         });
         return convertView;
     }
+
 
     @Override
     public int getChildrenCount(int groupPosition) {

@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.UserService;
-import com.example.matsedillvikunnar.lib.MyExpandableListAdapter;
+import com.example.matsedillvikunnar.lib.MyPageListAdapter;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -73,7 +73,7 @@ public class MyPageActivity extends AppCompatActivity {
                 mMealPlanList = result;
                 Log.d(TAG, "Tókst að ná í MealPlan");
                 ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView_mealPlan);
-                MyExpandableListAdapter adapter = new MyExpandableListAdapter(MyPageActivity.this, mMealPlanList);
+                MyPageListAdapter adapter = new MyPageListAdapter(MyPageActivity.this, mMealPlanList);
                 listView.setAdapter(adapter);
             }
             @Override

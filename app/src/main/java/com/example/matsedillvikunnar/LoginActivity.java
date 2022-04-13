@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mTextViewUsername;
     private TextView mTextViewPassword;
     private TextView mTextViewSignUp;
+    private UserService mUserService;
 
     private User user= new User();
 
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mUserService = new UserService(this);
 
         mButtonLogin = (Button) findViewById(R.id.login_btn);
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
@@ -74,8 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         jsonObject.put("username", username);
         jsonObject.put("userPassword", password);
 
-        UserService service = new UserService(this);
-        service.postUser(jsonObject, new NetworkCallback<User>() {
+        mUserService.postUser(jsonObject, new NetworkCallback<User>() {
             @Override
             public void onSuccess(User result) {
                 user= result;
@@ -91,8 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void findMealPlan(String username){
-        UserService service = new UserService(this);
-        service.getMealPlan(username, new NetworkCallback<List<MealPlan>>() {
+        mUserService.getMealPlan(username, new NetworkCallback<List<MealPlan>>() {
             @Override
             public void onSuccess(List<MealPlan> result) {
                 user.setMealPlan(result);
