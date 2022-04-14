@@ -11,9 +11,6 @@ import com.example.matsedillvikunnar.EntityClass.User;
 import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.RecipeService;
-import com.example.matsedillvikunnar.databinding.ActivityMyPageBinding;
-import com.example.matsedillvikunnar.databinding.ActivityRecipeBinding;
-import com.example.matsedillvikunnar.databinding.ActivityRecipesBinding;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.example.matsedillvikunnar.networking.NetworkManager;
 import com.example.matsedillvikunnar.networking.Service;
@@ -34,9 +31,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RecipesActivity extends AppCompatActivity {
+public class RecipesActivity extends AppCompatActivity implements RecipesAdapter.OnNoteListener{
     private final String TAG ="RecipesActivity";
     private static final String KEY_RECIPES = "recipes";
 
@@ -46,13 +44,13 @@ public class RecipesActivity extends AppCompatActivity {
 
     private int mRecipesIndex = 0;
     private List<Recipe> mRecipes;
-    private TextView mTextViewTEST;
-    private ImageView mImageTEST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         if (savedInstanceState != null) {
             mRecipesIndex = savedInstanceState.getInt(KEY_RECIPES, 0);
@@ -77,7 +75,7 @@ public class RecipesActivity extends AppCompatActivity {
             .this);
                 recyclerView.setLayoutManager(layoutManager);
 
-                mAdapter = new RecipesAdapter(mRecipes, RecipesActivity.this);
+                mAdapter = new RecipesAdapter(mRecipes, RecipesActivity.this, RecipesActivity.this::onNoteClick);
                 recyclerView.setAdapter(mAdapter);
 
             }
@@ -114,4 +112,14 @@ public class RecipesActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onNoteClick(int position) {
+        Log.d(TAG, "onNoteClick: success");
+        
+
+        //String s = mRecipes.get(position).getRecipeID();
+        Intent intent =  new Intent(this, RecipeActivity.class);
+        //intent.putExtra("individual_recipe", s);
+        startActivity(intent);
+    }
 }

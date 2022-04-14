@@ -7,78 +7,26 @@
     tools:context=".ui.Activities.RecipeActivity">
 
     <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="32dp"
-        android:clickable="false"
-        android:text="@string/title_two"
-        android:textColor="#FF9800"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="108dp"
-        android:text="@string/title_one"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="167dp"
-        android:layout_height="35dp"
+        android:id="@+id/recipeName"
+        android:layout_width="349dp"
+        android:layout_height="38dp"
         android:text="@string/recipe_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.238" />
-
-    <Button
-        android:id="@+id/ingredients_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hráfeni"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.169"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.598" />
-
-    <Button
-        android:id="@+id/method_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aðferð"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.598" />
+        app:layout_constraintVertical_bias="0.053" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/chosen_recipe"
-        android:layout_width="340dp"
-        android:layout_height="249dp"
+        android:layout_width="361dp"
+        android:layout_height="459dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.948">
+        app:layout_constraintVertical_bias="0.819">
 
         <LinearLayout
             android:layout_width="match_parent"
