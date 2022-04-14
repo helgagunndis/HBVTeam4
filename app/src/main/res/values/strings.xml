@@ -16,6 +16,8 @@
     <string name="username">Notendanafn</string>
     <string name="you_have_account">Áttu nú þegar aðgang ?</string>
     <string name="sign_in">Skrá inn</string>
+    <string name="sign_out">Skrá út</string>
+
 
 
     <string name="choose_category">Veldu þinn flokk</string>
