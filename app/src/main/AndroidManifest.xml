@@ -18,6 +18,7 @@
             android:exported="true" />
         <activity
             android:name=".ui.Activities.RecipeActivity"
+            android:parentActivityName=".ui.Activities.RecipesActivity"
             android:exported="true" />
         <activity
             android:name=".ui.Activities.SetupActivity"
