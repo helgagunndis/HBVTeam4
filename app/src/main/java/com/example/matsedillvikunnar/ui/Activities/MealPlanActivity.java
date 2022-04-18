@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,15 @@ public class MealPlanActivity extends AppCompatActivity {
     private int mMealPlanIndex = 0;
     private List mMealPlan;
     private TextView mTextViewUser;
+
+    private CheckBox mCheckBoxMonday;
+    private CheckBox mCheckBoxTuesday;
+    private CheckBox mCheckBoxWednesday;
+    private CheckBox mCheckBoxThursday;
+    private CheckBox mCheckBoxFriday;
+    private CheckBox mCheckBoxSaturday;
+    private CheckBox mCheckBoxSunday;
+
     private TextView mTextViewMondayRecipe;
     private TextView mTextViewTuesdayRecipe;
     private TextView mTextViewWednesdayRecipe;
@@ -45,6 +55,14 @@ public class MealPlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mealplan);
 
         mTextViewUser = (TextView) findViewById(R.id.user_text);
+        mCheckBoxMonday = (CheckBox) findViewById(R.id.checkBox_monday);
+        mCheckBoxTuesday = (CheckBox) findViewById(R.id.checkBox_tuesday);
+        mCheckBoxWednesday = (CheckBox) findViewById(R.id.checkBox_wednesday);
+        mCheckBoxThursday = (CheckBox) findViewById(R.id.checkBox_thursday);
+        mCheckBoxFriday = (CheckBox) findViewById(R.id.checkBox_friday);
+        mCheckBoxSaturday = (CheckBox) findViewById(R.id.checkBox_saturday);
+        mCheckBoxSunday = (CheckBox) findViewById(R.id.checkBox_sunday);
+
         mTextViewMondayRecipe = (TextView) findViewById(R.id.monday_recipe_textView);
         mTextViewTuesdayRecipe = (TextView) findViewById(R.id.tuesday_recipe_textView);
         mTextViewWednesdayRecipe = (TextView) findViewById(R.id.wednesday_recipe_textView);
@@ -95,14 +113,55 @@ public class MealPlanActivity extends AppCompatActivity {
         service.getMealPlan(category, days,new NetworkCallback<List<Recipe>>() {
             @Override
             public void onSuccess(List<Recipe> result) {
+                if (mCheckBoxMonday.isChecked() == true ) {
+                    mTextViewMondayRecipe.setText(result.get(0).getRecipeTitle());
+                }
+                else {
+                    mTextViewMondayRecipe.setText("Enginn réttur valinn");
+                }
 
-                mTextViewMondayRecipe.setText(result.get(0).getRecipeTitle());
-                mTextViewTuesdayRecipe.setText(result.get(1).getRecipeTitle());
-                mTextViewWednesdayRecipe.setText(result.get(2).getRecipeTitle());
-                mTextViewThursdayRecipe.setText(result.get(3).getRecipeTitle());
-                mTextViewFridayRecipe.setText(result.get(4).getRecipeTitle());
-                mTextViewSaturdayRecipe.setText(result.get(5).getRecipeTitle());
-                mTextViewSundayRecipe.setText(result.get(6).getRecipeTitle());
+                if (mCheckBoxTuesday.isChecked() == true ) {
+                    mTextViewTuesdayRecipe.setText(result.get(1).getRecipeTitle());
+                }
+                else {
+                    mTextViewTuesdayRecipe.setText("Enginn réttur valinn");
+                }
+
+                if (mCheckBoxWednesday.isChecked() == true ) {
+                    mTextViewWednesdayRecipe.setText(result.get(2).getRecipeTitle());
+                }
+                else {
+                    mTextViewWednesdayRecipe.setText("Enginn réttur valinn");
+                }
+
+                if (mCheckBoxThursday.isChecked() == true ) {
+                    mTextViewThursdayRecipe.setText(result.get(3).getRecipeTitle());
+                }
+                else {
+                    mTextViewThursdayRecipe.setText("Enginn réttur valinn");
+                }
+
+                if (mCheckBoxFriday.isChecked() == true ) {
+                    mTextViewFridayRecipe.setText(result.get(4).getRecipeTitle());
+                }
+                else {
+                    mTextViewFridayRecipe.setText("Enginn réttur valinn");
+                }
+
+                if (mCheckBoxSaturday.isChecked() == true ) {
+                    mTextViewSaturdayRecipe.setText(result.get(5).getRecipeTitle());
+                }
+                else {
+                    mTextViewSaturdayRecipe.setText("Enginn réttur valinn");
+                }
+
+                if (mCheckBoxSunday.isChecked() == true ) {
+                    mTextViewSundayRecipe.setText(result.get(6).getRecipeTitle());
+                }
+                else {
+                    mTextViewSundayRecipe.setText("Enginn réttur valinn");
+                }
+
                 Log.d(TAG, "Fann þessar uppskriftir" + result );
             }
             @Override
