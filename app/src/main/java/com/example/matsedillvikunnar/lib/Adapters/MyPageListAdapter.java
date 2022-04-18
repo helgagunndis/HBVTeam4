@@ -107,7 +107,7 @@ public class MyPageListAdapter extends BaseExpandableListAdapter {
         }
         Timestamp created = mealPlan.get(groupPosition).getCreated();
         Date date = new Date();
-        date.setTime(created.getTime());
+        //date.setTime(created.getTime());
         String formattedDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
         ((CheckedTextView) convertView).setText(formattedDate);
         ((CheckedTextView) convertView).setChecked(isExpanded);

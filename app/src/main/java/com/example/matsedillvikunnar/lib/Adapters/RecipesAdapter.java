@@ -1,4 +1,4 @@
-package com.example.matsedillvikunnar.ui.Activities;
+package com.example.matsedillvikunnar.lib.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
