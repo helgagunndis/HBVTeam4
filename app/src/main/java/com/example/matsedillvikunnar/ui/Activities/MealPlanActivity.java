@@ -7,26 +7,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.matsedillvikunnar.EntityClass.Recipe;
-import com.example.matsedillvikunnar.EntityClass.User;
-import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.RecipeService;
 import com.example.matsedillvikunnar.databinding.ActivityMealplanBinding;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
-import com.example.matsedillvikunnar.networking.NetworkManager;
-import com.example.matsedillvikunnar.networking.Service;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -39,14 +30,28 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private int mMealPlanIndex = 0;
     private List mMealPlan;
-    private TextView mTextViewTEST2;
+    private TextView mTextViewUser;
+    private TextView mTextViewMondayRecipe;
+    private TextView mTextViewTuesdayRecipe;
+    private TextView mTextViewWednesdayRecipe;
+    private TextView mTextViewThursdayRecipe;
+    private TextView mTextViewFridayRecipe;
+    private TextView mTextViewSaturdayRecipe;
+    private TextView mTextViewSundayRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mealplan);
 
-        mTextViewTEST2 = (TextView) findViewById(R.id.textView18);
+        mTextViewUser = (TextView) findViewById(R.id.user_text);
+        mTextViewMondayRecipe = (TextView) findViewById(R.id.monday_recipe_textView);
+        mTextViewTuesdayRecipe = (TextView) findViewById(R.id.tuesday_recipe_textView);
+        mTextViewWednesdayRecipe = (TextView) findViewById(R.id.wednesday_recipe_textView);
+        mTextViewThursdayRecipe = (TextView) findViewById(R.id.thursday_recipe_textView);
+        mTextViewFridayRecipe = (TextView) findViewById(R.id.friday_recipe_textView);
+        mTextViewSaturdayRecipe = (TextView) findViewById(R.id.saturday_recipe_textView);
+        mTextViewSundayRecipe = (TextView) findViewById(R.id.sunday_recipe_textView);
 
         if(savedInstanceState != null){
             mMealPlanIndex = savedInstanceState.getInt(KEY_MEALPLAN, 0);
@@ -90,7 +95,14 @@ public class MealPlanActivity extends AppCompatActivity {
         service.getMealPlan(category, days,new NetworkCallback<List<Recipe>>() {
             @Override
             public void onSuccess(List<Recipe> result) {
-                mTextViewTEST2.setText(result.get(0).getRecipeTitle());
+
+                mTextViewMondayRecipe.setText(result.get(0).getRecipeTitle());
+                mTextViewTuesdayRecipe.setText(result.get(1).getRecipeTitle());
+                mTextViewWednesdayRecipe.setText(result.get(2).getRecipeTitle());
+                mTextViewThursdayRecipe.setText(result.get(3).getRecipeTitle());
+                mTextViewFridayRecipe.setText(result.get(4).getRecipeTitle());
+                mTextViewSaturdayRecipe.setText(result.get(5).getRecipeTitle());
+                mTextViewSundayRecipe.setText(result.get(6).getRecipeTitle());
                 Log.d(TAG, "Fann þessar uppskriftir" + result );
             }
             @Override
