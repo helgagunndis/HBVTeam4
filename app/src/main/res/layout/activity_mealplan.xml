@@ -146,7 +146,7 @@
         app:layout_constraintVertical_bias="0.818" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/confirm_mp_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/confirm_mealplan"
@@ -158,9 +158,10 @@
         app:layout_constraintVertical_bias="0.818" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/monday_recipe_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/monday_recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,9 +171,10 @@
         app:layout_constraintVertical_bias="0.269" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/tuesday_recipe_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/tuesday_recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -182,9 +184,10 @@
         app:layout_constraintVertical_bias="0.341" />
 
     <TextView
-        android:id="@+id/textView24"
+        android:id="@+id/wednesday_recipe_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/wednesday_recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -193,21 +196,24 @@
         app:layout_constraintVertical_bias="0.412" />
 
     <TextView
-        android:id="@+id/textView25"
+        android:id="@+id/thursday_recipe_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/thursday_recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.702" />
+        app:layout_constraintVertical_bias="0.484" />
+
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/friday_recipe_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/friday_recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -217,9 +223,10 @@
         app:layout_constraintVertical_bias="0.557" />
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/saturday_recipe_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/saturday_recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -229,16 +236,17 @@
         app:layout_constraintVertical_bias="0.629" />
 
     <TextView
-        android:id="@+id/textView28"
+        android:id="@+id/sunday_recipe_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:text="@string/sunday_recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.484" />
+        app:layout_constraintVertical_bias="0.702" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
