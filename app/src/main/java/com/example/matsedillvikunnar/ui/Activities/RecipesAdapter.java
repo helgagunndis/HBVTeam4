@@ -41,6 +41,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.cardTitle.setText(recipeList.get(position).getRecipeTitle());
         Picasso.get().load(recipeList.get(position).getRecipeImage()).into(holder.cardImage);
+        holder.cardSummary.setText(recipeList.get(position).getRecipeSummary());
        
     }
 
@@ -56,12 +57,14 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView cardImage;
         TextView cardTitle;
+        TextView cardSummary;
         OnNoteListener onNoteListener;
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             cardTitle = itemView.findViewById(R.id.cardTitle);
             cardImage = itemView.findViewById(R.id.cardImage);
+            cardSummary = itemView.findViewById(R.id.cardSummary);
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);

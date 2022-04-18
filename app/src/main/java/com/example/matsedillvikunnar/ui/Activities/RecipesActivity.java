@@ -115,11 +115,14 @@ public class RecipesActivity extends AppCompatActivity implements RecipesAdapter
     @Override
     public void onNoteClick(int position) {
         Log.d(TAG, "onNoteClick: success");
-        
 
-        //String s = mRecipes.get(position).getRecipeID();
+        String s = String.valueOf(mRecipes.get(position).getRecipeID());
+        Log.d(TAG, "onNoteClick: recpipeID"+ mRecipes.get(position).getRecipeID());
+        Log.d(TAG, "onNoteClick: recipe name"+ mRecipes.get(position).getRecipeTitle());
         Intent intent =  new Intent(this, RecipeActivity.class);
-        //intent.putExtra("individual_recipe", s);
+        intent.putExtra("individual_recipe", s);
         startActivity(intent);
+
+
     }
 }
