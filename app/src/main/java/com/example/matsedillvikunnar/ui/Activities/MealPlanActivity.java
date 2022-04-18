@@ -23,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.slider.Slider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MealPlanActivity extends AppCompatActivity {
@@ -58,6 +59,7 @@ public class MealPlanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mealplan);
 
         mTextViewUser = (TextView) findViewById(R.id.user_text);
+
         mCheckBoxMonday = (CheckBox) findViewById(R.id.checkBox_monday);
         mCheckBoxMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -121,7 +123,10 @@ public class MealPlanActivity extends AppCompatActivity {
         }
 
         // Hversu marga daga á að ná í og í hvaða flokk
-        getMealPlan(7,2);
+
+            getMealPlan(7, 4);
+
+
 
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -157,6 +162,15 @@ public class MealPlanActivity extends AppCompatActivity {
 
         if (mCheckBoxMonday.isChecked() == true ) {
         mTextViewMondayRecipe.setText(mealplan.get(0).getRecipeTitle());
+        mTextViewMondayRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = String.valueOf(mealplan.get(0).getRecipeID());
+                Intent intent =  new Intent(getApplicationContext(), RecipeActivity.class);
+                intent.putExtra("individual_recipe", s);
+                startActivity(intent);
+            }
+        });
         }
                 else {
         mTextViewMondayRecipe.setText("Enginn réttur valinn");
@@ -164,6 +178,15 @@ public class MealPlanActivity extends AppCompatActivity {
 
                 if (mCheckBoxTuesday.isChecked() == true ) {
         mTextViewTuesdayRecipe.setText(mealplan.get(1).getRecipeTitle());
+        mTextViewTuesdayRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = String.valueOf(mealplan.get(1).getRecipeID());
+                Intent intent =  new Intent(getApplicationContext(), RecipeActivity.class);
+                intent.putExtra("individual_recipe", s);
+                startActivity(intent);
+            }
+        });
         }
                 else {
         mTextViewTuesdayRecipe.setText("Enginn réttur valinn");
@@ -171,6 +194,15 @@ public class MealPlanActivity extends AppCompatActivity {
 
                 if (mCheckBoxWednesday.isChecked() == true ) {
         mTextViewWednesdayRecipe.setText(mealplan.get(2).getRecipeTitle());
+        mTextViewWednesdayRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = String.valueOf(mealplan.get(2).getRecipeID());
+                Intent intent =  new Intent(getApplicationContext(), RecipeActivity.class);
+                intent.putExtra("individual_recipe", s);
+                startActivity(intent);
+            }
+        });
         }
                 else {
         mTextViewWednesdayRecipe.setText("Enginn réttur valinn");
@@ -178,6 +210,15 @@ public class MealPlanActivity extends AppCompatActivity {
 
                 if (mCheckBoxThursday.isChecked() == true ) {
         mTextViewThursdayRecipe.setText(mealplan.get(3).getRecipeTitle());
+        mTextViewThursdayRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = String.valueOf(mealplan.get(3).getRecipeID());
+                Intent intent =  new Intent(getApplicationContext(), RecipeActivity.class);
+                intent.putExtra("individual_recipe", s);
+                startActivity(intent);
+            }
+        });
         }
                 else {
         mTextViewThursdayRecipe.setText("Enginn réttur valinn");
@@ -185,6 +226,15 @@ public class MealPlanActivity extends AppCompatActivity {
 
                 if (mCheckBoxFriday.isChecked() == true ) {
         mTextViewFridayRecipe.setText(mealplan.get(4).getRecipeTitle());
+        mTextViewFridayRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = String.valueOf(mealplan.get(4).getRecipeID());
+                Intent intent =  new Intent(getApplicationContext(), RecipeActivity.class);
+                intent.putExtra("individual_recipe", s);
+                startActivity(intent);
+            }
+        });
         }
                 else {
         mTextViewFridayRecipe.setText("Enginn réttur valinn");
@@ -192,6 +242,15 @@ public class MealPlanActivity extends AppCompatActivity {
 
                 if (mCheckBoxSaturday.isChecked() == true ) {
         mTextViewSaturdayRecipe.setText(mealplan.get(5).getRecipeTitle());
+        mTextViewSaturdayRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = String.valueOf(mealplan.get(5).getRecipeID());
+                Intent intent =  new Intent(getApplicationContext(), RecipeActivity.class);
+                intent.putExtra("individual_recipe", s);
+                startActivity(intent);
+            }
+        });
         }
                 else {
         mTextViewSaturdayRecipe.setText("Enginn réttur valinn");
@@ -199,6 +258,15 @@ public class MealPlanActivity extends AppCompatActivity {
 
                 if (mCheckBoxSunday.isChecked() == true ) {
         mTextViewSundayRecipe.setText(mealplan.get(6).getRecipeTitle());
+        mTextViewSundayRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = String.valueOf(mealplan.get(6).getRecipeID());
+                Intent intent =  new Intent(getApplicationContext(), RecipeActivity.class);
+                intent.putExtra("individual_recipe", s);
+                startActivity(intent);
+            }
+        });
         }
                 else {
         mTextViewSundayRecipe.setText("Enginn réttur valinn");
