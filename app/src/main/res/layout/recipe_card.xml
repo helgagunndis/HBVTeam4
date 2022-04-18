@@ -13,31 +13,39 @@
     tools:context=".ui.Activities.RecipesActivity">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_width="395dp"
+        android:layout_height="257dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
-        app:contentPaddingRight="10dp"
+        app:cardMaxElevation="15dp"
         app:contentPaddingLeft="10dp"
-        app:cardMaxElevation="15dp">
+        app:contentPaddingRight="10dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/cardImage"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:id="@+id/cardImage"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop" />
 
             <TextView
-                android:layout_below="@+id/cardImage"
                 android:id="@+id/cardTitle"
-                android:gravity="center_vertical"
-                android:text="..."
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="30dp"
+                android:layout_below="@+id/cardImage"
+                android:gravity="center_vertical"
+                android:text="title" />
+
+            <TextView
+                android:id="@+id/cardSummary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/cardTitle"
+                android:gravity="center_vertical"
+                android:text="summary" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
