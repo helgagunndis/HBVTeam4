@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +15,6 @@ import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.UserService;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
-import com.example.matsedillvikunnar.networking.NetworkManager;
-import com.example.matsedillvikunnar.networking.Service;
 
 import org.json.JSONException;
 import org.json.JSONObject;
