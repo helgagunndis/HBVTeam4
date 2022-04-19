@@ -1,6 +1,7 @@
 package com.example.matsedillvikunnar.lib.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.R;
+import com.example.matsedillvikunnar.ui.Activities.RecipeActivity;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Timestamp;
@@ -47,6 +49,7 @@ public class MyPageListAdapter extends BaseExpandableListAdapter {
         System.out.println("click on child view");
         String recipe = mealPlan.get(groupPosition).getMpLists().get(childPosition).getRecipe().getRecipeTitle();
         String img = mealPlan.get(groupPosition).getMpLists().get(childPosition).getRecipe().getRecipeImage();
+        String id = String.valueOf(mealPlan.get(groupPosition).getMpLists().get(childPosition).getRecipe().getRecipeID());
 
         System.out.println(img);
         TextView text = null;
@@ -60,8 +63,9 @@ public class MyPageListAdapter extends BaseExpandableListAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity, recipe,
-                        Toast.LENGTH_SHORT).show();
+                Intent intent =  new Intent(activity, RecipeActivity.class);
+                intent.putExtra("individual_recipe", id );
+                activity.startActivity(intent);
             }
         });
         return convertView;
