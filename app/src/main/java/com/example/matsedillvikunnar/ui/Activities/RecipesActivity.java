@@ -2,36 +2,23 @@ package com.example.matsedillvikunnar.ui.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.matsedillvikunnar.EntityClass.Recipe;
-import com.example.matsedillvikunnar.EntityClass.User;
-import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.RecipeService;
+import com.example.matsedillvikunnar.lib.Adapters.RecipesAdapter;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
-import com.example.matsedillvikunnar.networking.NetworkManager;
-import com.example.matsedillvikunnar.networking.Service;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.squareup.picasso.Picasso;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.TestLooperManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.List;
 
 public class RecipesActivity extends AppCompatActivity implements RecipesAdapter.OnNoteListener{
@@ -115,11 +102,14 @@ public class RecipesActivity extends AppCompatActivity implements RecipesAdapter
     @Override
     public void onNoteClick(int position) {
         Log.d(TAG, "onNoteClick: success");
-        
 
-        //String s = mRecipes.get(position).getRecipeID();
+        String s = String.valueOf(mRecipes.get(position).getRecipeID());
+        Log.d(TAG, "onNoteClick: recpipeID"+ mRecipes.get(position).getRecipeID());
+        Log.d(TAG, "onNoteClick: recipe name"+ mRecipes.get(position).getRecipeTitle());
         Intent intent =  new Intent(this, RecipeActivity.class);
-        //intent.putExtra("individual_recipe", s);
+        intent.putExtra("individual_recipe", s);
         startActivity(intent);
+
+
     }
 }

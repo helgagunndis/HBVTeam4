@@ -10,6 +10,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,8 +38,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private final String TAG ="LoginActivity";
     private static final String KEY_INDEX = "index";
+
     private final String USER_NAME="com.example.matsedillvikunnar.username";
-    private final String MEALPLAN_ID="com.example.matsedillvikunnar.mealplan";
+    private final String SHARED_PREFS="shearedPrefs";
 
     private Button mButtonLogin;
     private TextView mTextViewUsername;
@@ -47,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private UserService mUserService;
 
     private User user= new User();
+    private String mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +58,16 @@ public class LoginActivity extends AppCompatActivity {
         mUserService = new UserService(this);
         createNotificationChannel();
 
+        loadUsername();
+        if (mUsername!=null){
+            Intent i= new Intent(LoginActivity.this, MyPageActivity.class);
+            startActivity(i);
+        }
+
         mButtonLogin = (Button) findViewById(R.id.login_btn);
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 mTextViewUsername =(TextView) findViewById(R.id.login_username_new);
                 mTextViewPassword =(TextView) findViewById(R.id.login_password_new);
 
@@ -105,14 +113,15 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("username", username);
         jsonObject.put("userPassword", password);
-
         mUserService.postUser(jsonObject, new NetworkCallback<User>() {
             @Override
             public void onSuccess(User result) {
                 user= result;
                 Log.d(TAG, "Notandi fannst " + user.getUsername() );
-                // Ná í mealplan
-                findMealPlan(result.getUsername());
+                saveUsername(user.getUsername());
+                Intent i= new Intent(LoginActivity.this, MyPageActivity.class);
+                startActivity(i);
+                Toast.makeText(LoginActivity.this,R.string.managed_to_login_toast,Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(String error) {
@@ -121,26 +130,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void findMealPlan(String username){
-        mUserService.getMealPlan(username, new NetworkCallback<List<MealPlan>>() {
-            @Override
-            public void onSuccess(List<MealPlan> result) {
-                user.setMealPlan(result);
-                Log.d(TAG, "MealPlan á notanda " + user.getMealPlan() );
-                Intent i= new Intent(LoginActivity.this, MyPageActivity.class);
-                i.putExtra(USER_NAME,user.getUsername());
 
-                // TODO finna leið til að geyma notandan í gegn um allt appið
+    public void saveUsername(String username){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor =sharedPreferences.edit();
 
-                startActivity(i);
-                Toast.makeText(LoginActivity.this,R.string.managed_to_login_toast,Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFailure(String error) {
-                Log.e(TAG, "Gat ekki náð í mealPlan" + error);
-            }
-        });
+        editor.putString(USER_NAME, username);
+
+        editor.apply();
     }
-
-
+    public void loadUsername(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        mUsername = sharedPreferences.getString(USER_NAME,null);
+    }
 }

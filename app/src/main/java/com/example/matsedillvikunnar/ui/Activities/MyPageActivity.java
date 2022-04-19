@@ -2,33 +2,33 @@ package com.example.matsedillvikunnar.ui.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-
 import com.example.matsedillvikunnar.EntityClass.MealPlan;
+import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.UserService;
-import com.example.matsedillvikunnar.lib.MyPageListAdapter;
+import com.example.matsedillvikunnar.lib.Adapters.MyPageListAdapter;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
 import java.util.List;
 
 public class MyPageActivity extends AppCompatActivity {
 
     private final String TAG ="MyPageActivity";
     private final String USER_NAME="com.example.matsedillvikunnar.username";
+    private final String SHARED_PREFS="shearedPrefs";
 
     private TextView mTextViewUsername;
+    private Button mButtonLogout;
     private String mUsername;
     private List<MealPlan> mMealPlanList;
     @Override
@@ -36,11 +36,21 @@ public class MyPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
 
+        loadUsername();
+        if(mUsername == null){
+            Log.d(TAG, "Náði ekki að finna username á shared prefs");
+        }
         mTextViewUsername = (TextView) findViewById(R.id.username_meal_plan);
-        Intent intent = getIntent();
-        mUsername= intent.getStringExtra(USER_NAME);
         mTextViewUsername.setText(mUsername);
         findMealPlan(mUsername);
+
+        mButtonLogout = (Button) findViewById(R.id.logout_btn);
+        mButtonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
 
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -83,4 +93,19 @@ public class MyPageActivity extends AppCompatActivity {
         });
     }
 
+    public void loadUsername(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        mUsername = sharedPreferences.getString(USER_NAME,null);
+    }
+
+    public void logout(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        editor.putString(USER_NAME, null);
+        editor.apply();
+        mUsername = sharedPreferences.getString(USER_NAME,null);
+
+        Intent i= new Intent(MyPageActivity.this, LoginActivity.class);
+        startActivity(i);
+    }
 }
