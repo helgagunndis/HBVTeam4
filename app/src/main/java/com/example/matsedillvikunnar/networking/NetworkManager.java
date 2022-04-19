@@ -116,6 +116,14 @@ public class NetworkManager {
                 Request.Method.GET, BASE_URL + url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                if (response != null){
+                    try {
+                        response=new String(response.getBytes("ISO-8859-1"), "UTF-8");
+
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
                 callback.onSuccess(response);
             }
         }, new Response.ErrorListener() {
