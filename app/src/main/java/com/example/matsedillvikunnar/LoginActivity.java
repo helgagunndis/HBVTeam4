@@ -83,8 +83,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 Calendar calendar = Calendar.getInstance();
-                //calendar.set(Calendar.DAY_OF_WEEK,7);
-                calendar.set(Calendar.HOUR_OF_DAY,10);
+                calendar.set(Calendar.DAY_OF_WEEK,7); //user is notified on sunday evenings
+                calendar.set(Calendar.HOUR_OF_DAY,8);
                 calendar.set(Calendar.MINUTE,16);
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
             }
