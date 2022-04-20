@@ -84,8 +84,6 @@ public class MyPageListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        System.out.println("PRETNA ÞETTA");
-        System.out.println(mealPlan.size());
         return mealPlan.size();
     }
 

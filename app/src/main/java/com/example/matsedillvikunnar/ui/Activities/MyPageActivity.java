@@ -29,6 +29,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     private TextView mTextViewUsername;
     private Button mButtonLogout;
+    private Button mButtonChangesCategory;
     private String mUsername;
     private List<MealPlan> mMealPlanList;
     @Override
@@ -49,6 +50,14 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 logout();
+            }
+        });
+        mButtonChangesCategory = (Button) findViewById(R.id.category_btn);
+        mButtonChangesCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(MyPageActivity.this, SetupActivity.class);
+                startActivity(i);
             }
         });
 
