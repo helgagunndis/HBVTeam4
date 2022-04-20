@@ -7,18 +7,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.EntityClass.User;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.RecipeService;
 import com.example.matsedillvikunnar.Service.UserService;
+import com.example.matsedillvikunnar.lib.Adapters.MyPageListAdapter;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -37,6 +41,7 @@ public class MealPlanActivity extends AppCompatActivity {
     private int mMealPlanIndex = 0;
     private List mMealPlan;
     private UserService mUserService;
+    private RecipeService mRecipeService;
     private TextView mTextViewUser;
 
     private CheckBox mCheckBoxMonday;
@@ -57,20 +62,45 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private String mUsername;
     private String mUserCategory= "4"; // by default
+    private Button mButtonConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mealplan);
         mUserService = new UserService(this);
+        mRecipeService = new RecipeService(this);
+
+        if(savedInstanceState != null){
+            mMealPlanIndex = savedInstanceState.getInt(KEY_MEALPLAN, 0);
+        }
 
         // ná í user frá sharedPreferences
         loadUsername();
         // ná í notanda til þess að fá í hvaða category hann vill að mealPlanið sitt sé í.
         findUser(mUsername);
 
+        getMealPlan(7, Integer.parseInt(mUserCategory));
+
         mTextViewUser = (TextView) findViewById(R.id.username_text);
         mTextViewUser.setText(mUsername);
+
+        mButtonConfirm = (Button) findViewById(R.id.confirm_mp_btn);
+        mButtonConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRecipeService.saveMealPlan(mMealPlan,mUsername, new NetworkCallback<MealPlan>() {
+                    @Override
+                    public void onSuccess(MealPlan result) {
+                        Log.d(TAG, "Tókst að ná í MealPlan"+ result);
+                    }
+                    @Override
+                    public void onFailure(String errorString) {
+                        Log.e(TAG, "Ekki hægt að ná í MealPlan: " + errorString);
+                    }
+                });
+            }
+        });
 
         mCheckBoxMonday = (CheckBox) findViewById(R.id.checkBox_monday);
         mCheckBoxMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -129,12 +159,6 @@ public class MealPlanActivity extends AppCompatActivity {
         mTextViewFridayRecipe = (TextView) findViewById(R.id.friday_recipe_textView);
         mTextViewSaturdayRecipe = (TextView) findViewById(R.id.saturday_recipe_textView);
         mTextViewSundayRecipe = (TextView) findViewById(R.id.sunday_recipe_textView);
-
-        if(savedInstanceState != null){
-            mMealPlanIndex = savedInstanceState.getInt(KEY_MEALPLAN, 0);
-        }
-
-        getMealPlan(7, Integer.parseInt(mUserCategory));
 
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
