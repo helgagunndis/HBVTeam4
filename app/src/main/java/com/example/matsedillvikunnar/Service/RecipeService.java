@@ -75,6 +75,7 @@ public class RecipeService {
         for (int i = 0; i <7; i++) {
             Long id;
             if ( listRecipe.size() <= i ){ id= (long) -1; }
+            else if(listRecipe.get(i) == null) { id = (long) -1; }
             else { id = listRecipe.get(i).getRecipeID(); }
             uri.appendQueryParameter("recipe"+i, Long.toString(id) );
         }
