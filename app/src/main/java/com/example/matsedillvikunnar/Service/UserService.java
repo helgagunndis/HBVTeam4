@@ -24,6 +24,12 @@ public class UserService {
     public UserService(Context context) {
         this.mNetworkManager = NetworkManager.getInstance(context);
     }
+
+    /**
+     * Post new User to rest UserRestControler that adds it to the database
+     * @param requestBody
+     * @param callback
+     */
     public void postSignup(JSONObject requestBody, NetworkCallback<User> callback) {
         mNetworkManager.post("rest/signup", requestBody, new NetworkCallback<String>() {
             @Override
@@ -39,6 +45,12 @@ public class UserService {
             }
         });
     }
+
+    /**
+     * POST a User that is already in the database
+     * @param requestBody
+     * @param callback
+     */
 
     public void postUser(JSONObject requestBody, NetworkCallback<User> callback) {
         mNetworkManager.post("rest/login", requestBody, new NetworkCallback<String>() {
@@ -56,6 +68,12 @@ public class UserService {
             }
         });
     }
+
+    /**
+     * GET mealPlan that the user has made already
+     * @param username
+     * @param callback
+     */
 
     public void getMealPlan(String username , NetworkCallback<List<MealPlan>> callback) {
         Uri.Builder uri = Uri.parse("rest/user/mealplan").buildUpon();
@@ -76,6 +94,12 @@ public class UserService {
         });
     }
 
+    /**
+     * Set new category on user
+     * @param username
+     * @param category
+     * @param callback
+     */
     public void categoryUser(String username , String category, NetworkCallback<User> callback) {
         Uri.Builder uri = Uri.parse("rest/user/category").buildUpon();
         uri.appendQueryParameter("username",username);
@@ -94,6 +118,12 @@ public class UserService {
             }
         });
     }
+
+    /**
+     * Find a user that has that username.
+     * @param username
+     * @param callback
+     */
     public void findUser(String username, NetworkCallback<User> callback) {
         Uri.Builder uri = Uri.parse("rest/user/user").buildUpon();
         uri.appendQueryParameter("username",username);

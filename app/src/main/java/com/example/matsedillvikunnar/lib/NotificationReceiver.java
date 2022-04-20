@@ -1,4 +1,4 @@
-package com.example.matsedillvikunnar.Service;
+package com.example.matsedillvikunnar.lib;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;

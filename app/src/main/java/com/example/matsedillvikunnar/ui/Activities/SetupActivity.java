@@ -2,31 +2,18 @@ package com.example.matsedillvikunnar.ui.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.EntityClass.User;
-import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
-import com.example.matsedillvikunnar.Service.NotificationReceiver;
 import com.example.matsedillvikunnar.Service.UserService;
-import com.example.matsedillvikunnar.lib.Adapters.MyPageListAdapter;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
-
-import org.json.JSONException;
-
-import java.security.Provider;
-import java.util.Calendar;
-import java.util.List;
 
 public class SetupActivity extends AppCompatActivity {
     private final String TAG ="SetupActivity";

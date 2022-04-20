@@ -1,28 +1,23 @@
 package com.example.matsedillvikunnar.ui.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.matsedillvikunnar.EntityClass.User;
 import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.UserService;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class CreateAccountActivity extends AppCompatActivity {
-
     private final String TAG ="CreateAccountActivity";
     private static final String KEY_ACCOUNT = "createAccount";
     private final String USER_NAME="com.example.matsedillvikunnar.username";
@@ -51,6 +46,10 @@ public class CreateAccountActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    /**
+     * handleSignup when user clicks the login button
+     * @param v
+     */
     public void  handleSignup(View v){
         mTextViewUsername =(TextView) findViewById(R.id.login_username_new);
         mTextViewEmail = (TextView) findViewById(R.id.login_email_new);
@@ -116,9 +115,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     public void saveUsername(String username){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor =sharedPreferences.edit();
-
         editor.putString(USER_NAME, username);
-
         editor.apply();
     }
 }

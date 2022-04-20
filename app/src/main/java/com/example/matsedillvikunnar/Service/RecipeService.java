@@ -20,6 +20,10 @@ public class RecipeService {
         this.mNetworkManager = NetworkManager.getInstance(context);
     }
 
+    /**
+     * GET all recipes that are in the database
+     * @param callback
+     */
     public void getRecipes(final NetworkCallback<List<Recipe>> callback){
         mNetworkManager.get("rest/recipes", new NetworkCallback<String>() {
             @Override
@@ -35,6 +39,14 @@ public class RecipeService {
             }
         });
     }
+
+    /**
+     * GET list of recipes that are in a certain category
+     * and the size list depends on how many days you want
+     * @param category
+     * @param days
+     * @param callback
+     */
 
     public void getMealPlan(int category, int days , NetworkCallback<List<Recipe>> callback) {
         Uri.Builder uri = Uri.parse("rest/mealplan").buildUpon();

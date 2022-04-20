@@ -1,11 +1,8 @@
 package com.example.matsedillvikunnar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,9 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.EntityClass.User;
-import com.example.matsedillvikunnar.Service.NotificationReceiver;
+import com.example.matsedillvikunnar.lib.NotificationReceiver;
 import com.example.matsedillvikunnar.Service.UserService;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.example.matsedillvikunnar.ui.Activities.CreateAccountActivity;
@@ -31,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
-import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity {
