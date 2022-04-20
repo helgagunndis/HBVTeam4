@@ -76,4 +76,41 @@ public class UserService {
         });
     }
 
+    public void categoryUser(String username , String category, NetworkCallback<User> callback) {
+        Uri.Builder uri = Uri.parse("rest/user/category").buildUpon();
+        uri.appendQueryParameter("username",username);
+        uri.appendQueryParameter("category",category);
+
+        mNetworkManager.get(uri.build().toString(), new NetworkCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                User user = gson.fromJson(result, User.class);
+                callback.onSuccess(user);
+            }
+            @Override
+            public void onFailure(String error) {
+                callback.onFailure(error);
+            }
+        });
+    }
+    public void findUser(String username, NetworkCallback<User> callback) {
+        Uri.Builder uri = Uri.parse("rest/user/user").buildUpon();
+        uri.appendQueryParameter("username",username);
+
+        mNetworkManager.get(uri.build().toString(), new NetworkCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                User user = gson.fromJson(result, User.class);
+                callback.onSuccess(user);
+            }
+            @Override
+            public void onFailure(String error) {
+                callback.onFailure(error);
+            }
+        });
+    }
+
+
 }

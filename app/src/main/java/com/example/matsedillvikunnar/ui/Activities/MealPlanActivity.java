@@ -1,6 +1,7 @@
 package com.example.matsedillvikunnar.ui.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -8,33 +9,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.matsedillvikunnar.EntityClass.Recipe;
+import com.example.matsedillvikunnar.EntityClass.User;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.RecipeService;
-import com.example.matsedillvikunnar.databinding.ActivityMealplanBinding;
+import com.example.matsedillvikunnar.Service.UserService;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.slider.Slider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MealPlanActivity extends AppCompatActivity {
     private final String TAG ="MealPLanActivity";
+    private final String USER_NAME="com.example.matsedillvikunnar.username";
+    private final String SHARED_PREFS="shearedPrefs";
 
-    ActivityMealplanBinding binding;
+    // ActivityMealplanBinding binding;
 
     private static final String KEY_MEALPLAN = "mealplan";
 
     private int mMealPlanIndex = 0;
     private List mMealPlan;
+    private UserService mUserService;
     private TextView mTextViewUser;
 
     private CheckBox mCheckBoxMonday;
@@ -53,12 +55,22 @@ public class MealPlanActivity extends AppCompatActivity {
     private TextView mTextViewSaturdayRecipe;
     private TextView mTextViewSundayRecipe;
 
+    private String mUsername;
+    private String mUserCategory= "4"; // by default
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mealplan);
+        mUserService = new UserService(this);
 
-        mTextViewUser = (TextView) findViewById(R.id.user_text);
+        // ná í user frá sharedPreferences
+        loadUsername();
+        // ná í notanda til þess að fá í hvaða category hann vill að mealPlanið sitt sé í.
+        findUser(mUsername);
+
+        mTextViewUser = (TextView) findViewById(R.id.username_text);
+        mTextViewUser.setText(mUsername);
 
         mCheckBoxMonday = (CheckBox) findViewById(R.id.checkBox_monday);
         mCheckBoxMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -122,11 +134,7 @@ public class MealPlanActivity extends AppCompatActivity {
             mMealPlanIndex = savedInstanceState.getInt(KEY_MEALPLAN, 0);
         }
 
-        // Hversu marga daga á að ná í og í hvaða flokk
-
-            getMealPlan(7, 4);
-
-
+        getMealPlan(7, Integer.parseInt(mUserCategory));
 
         //bottom nav bar kallar á hin activity
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
@@ -285,6 +293,23 @@ public class MealPlanActivity extends AppCompatActivity {
             @Override
             public void onFailure(String error) {
                 Log.e(TAG, "Ekki hægt að finna uppskrfitir" + error);
+            }
+        });
+    }
+    public void loadUsername(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        mUsername = sharedPreferences.getString(USER_NAME,null);
+    }
+    private void findUser(String username) {
+        mUserService.findUser(username, new NetworkCallback<User>() {
+            @Override
+            public void onSuccess(User result) {
+                Log.d(TAG, "gat náð í user " +result.getUserCategory());
+                mUserCategory = result.getUserCategory();
+            }
+            @Override
+            public void onFailure(String errorString) {
+                Log.e(TAG, "Ekki hægt að ná í MealPlan: " + errorString);
             }
         });
     }
