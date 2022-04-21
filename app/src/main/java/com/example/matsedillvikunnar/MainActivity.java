@@ -11,9 +11,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.matsedillvikunnar.databinding.ActivityMainBinding;
-import com.example.matsedillvikunnar.fragments.MyPageFragment;
-import com.example.matsedillvikunnar.fragments.NewPlanFragment;
-import com.example.matsedillvikunnar.fragments.RecipesFragment;
 import com.example.matsedillvikunnar.ui.Activities.MealPlanActivity;
 import com.example.matsedillvikunnar.ui.Activities.MyPageActivity;
 import com.example.matsedillvikunnar.ui.Activities.RecipesActivity;
