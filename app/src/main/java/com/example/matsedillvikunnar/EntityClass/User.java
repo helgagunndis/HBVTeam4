@@ -17,13 +17,16 @@ public class User {
     private String mUserPassword;
     @SerializedName("mealPlanList")
     private List<MealPlan> mMealPlanList;
-    // TODO : Bæta við Category sem fylgir notandanum
+    @SerializedName("userCategory")
+    private String mUserCategory;
 
 
-    public User(String username, String userEmail, String userPassword) {
+
+    public User(String username, String userEmail, String userPassword, String userCategory) {
         mUsername = username;
         mUserEmail = userEmail;
         mUserPassword = userPassword;
+        mUserCategory = userCategory;
     }
     public User() {
 
@@ -67,5 +70,13 @@ public class User {
 
     public void setMealPlan(List<MealPlan> mealPlanList) {
         mMealPlanList = mealPlanList;
+    }
+
+    public String getUserCategory() {
+        return mUserCategory;
+    }
+
+    public void setUserCategory(String userCategory) {
+        mUserCategory = userCategory;
     }
 }

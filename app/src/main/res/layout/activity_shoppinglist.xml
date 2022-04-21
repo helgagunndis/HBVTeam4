@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.282" />
 
     <TextView
-        android:id="@+id/user_text"
+        android:id="@+id/username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/username"

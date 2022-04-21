@@ -1,4 +1,4 @@
-package com.example.matsedillvikunnar.Service;
+package com.example.matsedillvikunnar.lib;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,7 +19,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notification")
 
-                .setSmallIcon(R.drawable.ic_baseline_announcement_24)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Útbúa matseðil!")
                 .setContentText("Ertu búin að útbúa matseðil fyrir vikuna?")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

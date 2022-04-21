@@ -61,27 +61,6 @@ public class NetworkManager {
         }
         return mQueue;
     }
-    public byte[] getUrlBytes(String urlSpec) throws IOException {
-        URL url = new URL(urlSpec);
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        try {
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            InputStream in = conn.getInputStream();
-            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new IOException(conn.getResponseMessage() + ": with " + urlSpec);
-            }
-            int bytesRead = 0;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = in.read(buffer)) > 0) {
-                out.write(buffer, 0, bytesRead);
-            }
-            out.close();
-            return out.toByteArray();
-        } finally { conn.disconnect(); }
-    }
-    public String getUrlString(String urlSpec) throws IOException {
-        return new String(getUrlBytes(urlSpec));
-    }
 
     /**
      * Post request to the backend
@@ -135,94 +114,6 @@ public class NetworkManager {
         );
         mQueue.add(request);
     }
-
-    public void getRecipe(int id, final NetworkCallback<Recipe> callback) {
-        String url = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendPath("recipes")
-                .appendPath(String.valueOf(id))
-                .build().toString();
-        StringRequest request = new StringRequest(
-                Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Gson gson = new Gson();
-                Recipe recipe = gson.fromJson(response, Recipe.class);
-                callback.onSuccess(recipe);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                callback.onFailure(error.toString());
-            }
-        }
-        );
-        mQueue.add(request);
-    }
-
-
-
-
-
-
-
-
-
-
-
-    /*private static final Uri ENDPOINT = Uri
-            .parse("http://10.0.2.2:8080/")
-            .buildUpon()
-            .appendQueryParameter("format", "json")
-            .appendQueryParameter("nojsoncallback", "1")
-            .appendQueryParameter("extras", "url_s, geo")
-            .build();
-
-
-    private String buildUrl(String method, String query) {
-        Uri.Builder uriBuilder = ENDPOINT.buildUpon()
-                .appendQueryParameter("method", method);
-
-        return uriBuilder.build().toString();
-    }
-
-    public List<Recipe> fetchMealPlan() {
-        String url = buildUrl("rest/mealplan", null);
-        return getRecipeList(url);
-    }
-
-    private List<Recipe> getRecipeList(String url) {
-        List<Recipe> items = new ArrayList<>();
-        try {
-            String jsonString = getUrlString(url);
-            Log.i(TAG, "received JSON: " + jsonString);
-            JSONObject jsonBody = new JSONObject(jsonString);
-            parseItems(items, jsonBody);
-
-        } catch (IOException ioe) {
-            Log.e(TAG, "Failed to fetch items", ioe);
-        } catch (JSONException je) {
-            Log.e(TAG, "Failed to parse JSON", je);
-        }
-        return items;
-    }
-    private void parseItems(List<Recipe> items, JSONObject jsonBody)
-            throws IOException, JSONException {
-
-        // TODO: Convert to Gson
-        JSONObject recipeJsonObject = jsonBody.getJSONObject("recipeCategory");
-        JSONArray recipeJsonArray = recipeJsonObject.getJSONArray("recipeCategory");
-
-        for (int i = 0; i < recipeJsonArray.length(); i++) {
-            JSONObject recipesJsonObject = recipeJsonArray.getJSONObject(i);
-
-            Recipe recipe = new Recipe();
-            recipe.setRecipeCategory(recipeJsonObject.getInt("recipeCategory"));
-
-            items.add(recipe);
-        }
-    }*/
-
 }
 
 

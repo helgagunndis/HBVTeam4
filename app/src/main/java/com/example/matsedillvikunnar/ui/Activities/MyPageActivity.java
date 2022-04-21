@@ -29,26 +29,36 @@ public class MyPageActivity extends AppCompatActivity {
 
     private TextView mTextViewUsername;
     private Button mButtonLogout;
+    private Button mButtonChangesCategory;
     private String mUsername;
     private List<MealPlan> mMealPlanList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
-
+        // ná í username frá shearedPrefs
         loadUsername();
-        if(mUsername == null){
-            Log.d(TAG, "Náði ekki að finna username á shared prefs");
-        }
+
         mTextViewUsername = (TextView) findViewById(R.id.username_meal_plan);
         mTextViewUsername.setText(mUsername);
         findMealPlan(mUsername);
 
+        // Skrá sig út og þannig null stilla shearedPrefs
         mButtonLogout = (Button) findViewById(R.id.logout_btn);
         mButtonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
+            }
+        });
+
+        // Breyta category á uppskriftum sem notandi vill fá á mealPlan
+        mButtonChangesCategory = (Button) findViewById(R.id.category_btn);
+        mButtonChangesCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(MyPageActivity.this, SetupActivity.class);
+                startActivity(i);
             }
         });
 
@@ -75,6 +85,10 @@ public class MyPageActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Use User service to find mealPlan that is on user.
+     * @param username
+     */
     private void findMealPlan(String username) {
         UserService service = new UserService(this);
         service.getMealPlan(username, new NetworkCallback<List<MealPlan>>() {
@@ -93,11 +107,18 @@ public class MyPageActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * getSharedPreferences that has
+     * the username of the user that is still logged in
+     */
     public void loadUsername(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         mUsername = sharedPreferences.getString(USER_NAME,null);
     }
 
+    /**
+     * Logout and clear username of sharedPreferences
+     */
     public void logout(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor =sharedPreferences.edit();

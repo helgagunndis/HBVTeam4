@@ -38,15 +38,16 @@
     <string name="quantity">Magn</string>
     <string name="ingredients">Hráefni</string>
     <string name="recipe_name">Nafn á uppskrift</string>
-    <string name="monday_recipe">mánudags uppskrift</string>
-    <string name="tuesday_recipe">þriðjudags uppskrift</string>
-    <string name="wednesday_recipe">miðvikudags uppskrift</string>
-    <string name="thursday_recipe">fimmtudags uppskrift</string>
-    <string name="friday_recipe">föstudags uppskrift</string>
-    <string name="saturday_recipe">laugardags uppskrift</string>
-    <string name="sunday_recipe">sunnudags uppskrift</string>
+    <string name="monday_recipe"></string>
+    <string name="tuesday_recipe"></string>
+    <string name="wednesday_recipe"></string>
+    <string name="thursday_recipe"></string>
+    <string name="friday_recipe"></string>
+    <string name="saturday_recipe"></string>
+    <string name="sunday_recipe"></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_btn">Breyta um flokk</string>
 
 
 </resources>

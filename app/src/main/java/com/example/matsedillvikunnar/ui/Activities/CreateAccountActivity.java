@@ -1,40 +1,41 @@
 package com.example.matsedillvikunnar.ui.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.matsedillvikunnar.EntityClass.User;
 import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.UserService;
 import com.example.matsedillvikunnar.networking.NetworkCallback;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class CreateAccountActivity extends AppCompatActivity {
-
     private final String TAG ="CreateAccountActivity";
     private static final String KEY_ACCOUNT = "createAccount";
+    private final String USER_NAME="com.example.matsedillvikunnar.username";
+    private final String SHARED_PREFS="shearedPrefs";
     private int mAccountIndex = 0;
 
-    private Button mButtonSignup;
     private TextView mTextViewUsername;
     private TextView mTextViewEmail;
     private TextView mTextViewPassword;
+    private UserService mUserService;
+
+    private User user= new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        mUserService = new UserService(this);
 
         if(savedInstanceState != null){
             mAccountIndex = savedInstanceState.getInt(KEY_ACCOUNT, 0);
@@ -45,6 +46,10 @@ public class CreateAccountActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    /**
+     * handleSignup when user clicks the login button
+     * @param v
+     */
     public void  handleSignup(View v){
         mTextViewUsername =(TextView) findViewById(R.id.login_username_new);
         mTextViewEmail = (TextView) findViewById(R.id.login_email_new);
@@ -68,16 +73,15 @@ public class CreateAccountActivity extends AppCompatActivity {
         jsonObject.put("userEmail", email);
         jsonObject.put("userPassword", password);
 
-        UserService service = new UserService(this);
-        service.postSignup(jsonObject, new NetworkCallback<User>() {
+        mUserService.postSignup(jsonObject, new NetworkCallback<User>() {
             @Override
             public void onSuccess(User result) {
                 Log.d(TAG, "Tókst að setja notanda í gagnagrun" + result );
-                // TODO : Að hann sé beint innskráður þegar hann sækjir um aðgang
-                // Intent i= new Intent(CreateAccountActivity.this, SetupActivity.class);
-                Intent i= new Intent(CreateAccountActivity.this, LoginActivity.class);
-                startActivity(i);
-                Toast.makeText(CreateAccountActivity.this,"Velkomin/nn nú getur skráð þig inn",Toast.LENGTH_SHORT).show();
+                try {
+                    login(username, password);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             @Override
             public void onFailure(String error) {
@@ -85,5 +89,33 @@ public class CreateAccountActivity extends AppCompatActivity {
                 Toast.makeText(CreateAccountActivity.this,"Þetta notendarnafn er frátekið",Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+    private void login(String username, String password) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username", username);
+        jsonObject.put("userPassword", password);
+        mUserService.postUser(jsonObject, new NetworkCallback<User>() {
+            @Override
+            public void onSuccess(User result) {
+                user= result;
+                Log.d(TAG, "Notandi fannst " + user.getUsername() );
+                saveUsername(user.getUsername());
+                Intent i= new Intent(CreateAccountActivity.this, SetupActivity.class);
+                startActivity(i);
+                Toast.makeText(CreateAccountActivity.this,R.string.managed_to_login_toast,Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(String error) {
+                Log.e(TAG, "Can't find user" + error);
+                Toast.makeText(CreateAccountActivity.this,"Gekk ekki að skrá inn",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void saveUsername(String username){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        editor.putString(USER_NAME, username);
+        editor.apply();
     }
 }
