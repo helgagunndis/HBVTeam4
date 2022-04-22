@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.matsedillvikunnar.EntityClass.MealPlan;
 import com.example.matsedillvikunnar.EntityClass.Recipe;
 import com.example.matsedillvikunnar.EntityClass.User;
+import com.example.matsedillvikunnar.LoginActivity;
 import com.example.matsedillvikunnar.R;
 import com.example.matsedillvikunnar.Service.RecipeService;
 import com.example.matsedillvikunnar.Service.UserService;
@@ -112,6 +114,7 @@ public class MealPlanActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(MealPlan result) {
                         Log.d(TAG, "Tókst að ná í MealPlan"+ result);
+                        Toast.makeText(MealPlanActivity.this,"Matseðill hefur verið útbúinn. Þú getur nálgast hann undir mínar siður.",Toast.LENGTH_LONG).show();
                     }
                     @Override
                     public void onFailure(String errorString) {
